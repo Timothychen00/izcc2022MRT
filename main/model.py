@@ -27,5 +27,15 @@ class DB():
             }
             self.games.insert_one(data)
         return err
+    
+    def find_game(self,name=None):
+        if name:
+            filters={'name':name}
+        else:
+            filters={}
+        return self.games.find(filters)
+    
+    def delete_games(self,name=None):
+        pass
 
 db_model=DB()

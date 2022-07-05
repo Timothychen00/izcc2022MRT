@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 {% block main_content %}
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-3"></div>
-        <div class="col-3">
+    <div class="row justify-content-end">
+        <div class="col-3 mt-3">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 建立遊戲
             </button>
@@ -20,17 +19,17 @@
                             <div class="modal-body">
                                 {{form.csrf_token()}}
                                 <div class="mb-3 d-flex justify-content-center">
-                                {{form.name.label}}
-                                {{form.name}}
+                                {{form.name.label(class_='form-label me-2 pt-2')}}
+                                {{form.name(class_='form-control',style='width:170px;')}}
                                 </div>
                                 <div class="mb-3 d-flex justify-content-center">
-                                {{form.password.label}}
-                                {{form.password}}
+                                {{form.password.label(class_='form-label me-2 pt-2')}}
+                                {{form.password(class_='form-control',style='width:170px;')}}
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                                {{form.submit()}}
+                                {{form.submit(class_='btn btn-primary')}}
                             </div>
                         </div>
                     </form>
@@ -39,12 +38,18 @@
         </div>
 
     </div>
-    <div class="row justify-content-center">
-        <div class="col-8">
-            
+    <div class="row justify-content-center mt-5" style="overflow:scroll">
+        {%for i in games %}
+        <div class="col-8 mb-3">
+            <div class="card">
+                <div class="card-body">
+                  <span class="card-title h5">{{i['name']}}</span>
+                  <span class="card-subtitle mb-2 text-muted h6"></span>
+                  <a href="/games/{{i['name']}}" class="btn btn-primary ms-auto">加入遊戲</a>
+                </div>
+              </div>
         </div>
-        <div class="col-8"></div>
-        <div class="col-8"></div>
+        {%endfor%}
     </div>
 </div>
 {% endblock main_content %}
