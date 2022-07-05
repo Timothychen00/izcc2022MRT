@@ -7,10 +7,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- Bootstrap CSS v5.2.0-beta1 -->
+        <link rel="stylesheet" href="/static/css/template.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"  integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     </head>
-    <body>
+    <body style="min-height:90vh;">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/">
@@ -41,24 +43,10 @@
         {% block main_content %}
         <div class="container-fluid">
             <div class="row justify-content-center">
-                <div class="col-8">
+                <div class="col-lg-8 col-12">
                     <img src="/static/img/routemap_2021.png" width="960" height="1286" usemap="#MRTMap">
                     <map name="MRTMap">
                         <area title="淡水" href="/eachstation?station=淡水" coords="113,78,173,113" shape="rect">
-                        <area title="紅樹林" href="/eachstation?station=紅樹林" coords="95,129,170,162" shape="rect">
-                        <area title="竹圍" href="/eachstation?station=竹圍" coords="111,177,168,212" shape="rect">
-                        <area title="關渡" href="/eachstation?station=關渡" coords="108,221,167,255" shape="rect">
-                        <area title="忠義" href="/eachstation?station=忠義" coords="163,253,198,309" shape="rect">
-                        <area title="復興崗" href="/eachstation?station=復興崗" coords="200,254,248,310" shape="rect">
-                        <area title="北投" href="/eachstation?station=北投" coords="251,252,292,310" shape="rect">
-                        <area title="奇岩" href="/eachstation?station=奇岩" coords="294,252,331,310" shape="rect">
-                        <area title="唭哩岸" href="/eachstation?station=唭哩岸" coords="333,252,382,309" shape="rect">
-                        <area title="石牌" href="/eachstation?station=石牌" coords="384,283,441,314" shape="rect">
-                        <area title="明德" href="/eachstation?station=明德" coords="384,326,441,361" shape="rect">
-                        <area title="芝山" href="/eachstation?station=芝山" coords="384,372,444,405" shape="rect">
-                        <area title="士林" href="/eachstation?station=士林" coords="384,417,443,451" shape="rect">
-                        <area title="劍潭" href="/eachstation?station=劍潭" coords="386,464,441,496" shape="rect">
-                        <area title="圓山" href="/eachstation?station=圓山" coords="385,506,450,538" shape="rect">
                         <area title="民權西路" href="/eachstation?station=民權西路" coords="375,539,467,539,467,567,448,568,446,602,373,602" shape="poly">
                         <area title="雙連" href="/eachstation?station=雙連" coords="334,613,409,644" shape="rect">
                         <area title="中山" href="/eachstation?station=中山" coords="371,689,453,689,453,638,405,638,405,658,371,658" shape="poly">
@@ -141,11 +129,21 @@
                     </map>
                 </div>
             </div>
+            {% block extend_content %}
+        
+            {% endblock extend_content %}
         </div>
         {% endblock main_content %}
-        <!-- Bootstrap JavaScript Libraries -->
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
 
+        <!-- Bootstrap JavaScript Libraries -->
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+        <script src="/static/js/jquery.rwdImageMaps.min.js"></script>
+        <script>
+            $(document).ready(function(e) {
+                $('img[usemap]').rwdImageMaps();
+            });
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
     </body>
 </html>

@@ -40,5 +40,5 @@ def games():
 
 @app_route.route('/games/<name>')
 def each_game(name):
-    
-    return render_template('base.html',page='map')
+    data=db_model.load_data()
+    return render_template('each_game.html',page='map',data=data,total=13)

@@ -19,7 +19,7 @@ class DB():
         result=self.games.find_one({'name':name})
         err=[]
         if result:
-            err.apend('遊戲名稱已經存在')
+            err.append('遊戲名稱已經存在')
         if not err:
             data={
                 'name':name,
@@ -33,6 +33,7 @@ class DB():
             filters={'name':name}
         else:
             filters={}
+            
         return self.games.find(filters)
     
     def delete_games(self,name=None):
