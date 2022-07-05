@@ -3,7 +3,7 @@
     <div class="container-fluid vh-100">
         <div class="row justify-content-center  vh-100 align-content-center">
             {% for i in data %}
-            <div class='col-12 col-lg-7 d-flex justify-content-center'>
+            <div class='col-12 col-lg-7 d-flex justify-content-center mb-5'>
                 <h3 class='team text-nowrap' style='background-color:{{i[1]}}'>{{i[0]}}</h3>
                 <div class="progress w-100 mt-2 ms-1">
                     <div class="progress-bar" role="progressbar" style="width: {{i[2]/total*100}}%" aria-valuenow="25" aria-valuemin="100">{{i[2]}}</div>
