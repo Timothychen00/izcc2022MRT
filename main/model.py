@@ -15,7 +15,7 @@ class DB():
             data.append([i['name'],i['color'],i['counts'],i['places']])
         return data
 
-    def create_game(self,name,password,number):
+    def create_game(self,name,number):
         result=self.games.find_one({'name':name})
         err=[]
         if result:
@@ -23,7 +23,6 @@ class DB():
         if not err:
             data={
                 'name':name,
-                'password':password,
                 'number':number,
                 'pin':[],
                 'adminpin':[]
@@ -48,7 +47,7 @@ class DB():
             
         return self.games.find(filters)
     
-    def join_game(self,name=None,pin=None):
+    def check_permission(self,name=None,pin=None):
         if name and pin:
             print(pin)
             result=self.games.find_one({'name':name})
@@ -60,9 +59,7 @@ class DB():
         return 'not allowed'
     
     def delete_games(self,name=None,pin=None):
-        result=self.games.find_one({'name':name})
-        if pin in result['adminpin']:
+        if self.check_permission(name,pin)=='admin':
             self.games.delete_one({'name':name})
-
 
 db_model=DB()

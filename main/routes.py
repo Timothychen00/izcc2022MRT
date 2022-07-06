@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, render_template, request,session,flash
 from main.model import db_model
-from main.forms import CreateGame,JoinGame
+from main.forms import CreateForm,JoinForm,DeleteForm
 from main.decorators import login_required
 app_route=Blueprint('捷大',__name__,static_folder='static',template_folder='templates')
 
@@ -24,27 +24,32 @@ def control_center():
 
 @app_route.route('/games',methods=['GET','POST'])
 def games():
-    form=CreateGame()
-    form1=JoinGame()
+    create_form=CreateForm()
+    join_form=JoinForm()
+    delete_form=DeleteForm()
     games=[]
     
     if request.method=='POST':
         print('post')
-        if form.validate_on_submit():
-            print(db_model.create_game(form.name.data,form.password.data,form.teamnumber.data))
+        print(create_form.validate_on_submit(),join_form.validate_on_submit(),delete_form.validate_on_submit())
+        if create_form.validate_on_submit():#新增遊戲
+            print(db_model.create_game(create_form.name.data,create_form.teamnumber.data))
         else:
-            print(form.name.errors,form.password.errors,form.teamnumber.errors)
+            print(create_form.name.errors,create_form.teamnumber.errors)
 
-        if form1.validate_on_submit():
-            permission=db_model.join_game(form1.name.data,form1.pin.data)
+        if join_form.validate_on_submit():#加入遊戲
+            permission=db_model.check_permission(join_form.name.data,join_form.pin.data)
             print(permission)
             if permission!='not allowed':
                 session['games']={}
                 session['games']['permission']=permission#寫入權限pin
-                session['games']['name']=form1.name.data
-                return redirect('/games/'+form1.name.data)
+                session['games']['name']=join_form.name.data
+                return redirect('/games/'+join_form.name.data)
             else:
                 flash('pin碼錯誤')
+        if delete_form.validate_on_submit():
+            db_model.delete_games(delete_form.name.data)
+        
         return redirect('/games')
     else:
         if 'games' in session:
@@ -53,7 +58,7 @@ def games():
         print('get')
         games=db_model.find_game()
         print(games)
-    return render_template('games.html',form=form,games=games,page='games',form1=form1)
+    return render_template('games.html',create_form=create_form,games=games,page='games',join_form=join_form,delete_form=delete_form)
 
 
 @app_route.route('/games/<name>')

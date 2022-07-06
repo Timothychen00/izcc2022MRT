@@ -16,3 +16,16 @@ body{
 .login-card input{
     max-width:170px;
 }
+.delete-button{
+    color: white;
+    border-radius: .5rem;
+    height: 27px;
+    width: 27px;
+    padding-top: 0;
+    background-color: rgb(217,87,70);
+    border: none;
+    margin-top: 5px;
+}
+.delete-button:hover{
+    background-color: rgb(181, 79, 66);
+}
