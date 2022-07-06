@@ -7,3 +7,12 @@ img[usemap]{
 body{
     background-color: rgb(204, 47, 47);
 }
+.login-card{
+    border-radius: 2rem;
+    height:500px;
+    width: 300px!important;
+    border-top: 3px rgb(115, 134, 243) solid;
+}
+.login-card input{
+    max-width:170px;
+}

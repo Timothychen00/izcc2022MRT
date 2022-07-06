@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block main_content%}
+<div class="container-fluid vh-100">
+    <div class="row vh-100 justify-content-center align-content-center">
+        <div class="col-4 d-inline-flex login-card justify-content-center py-4 align-items-center shadow text-center">
+            <form action="/login" method="post">
+                <div class="mb-5 text-center ">
+                    <h3>登入</h3>
+                </div>
+                <div class="mb-3 text-start">
+                    <label for="name" class="form-label">姓名</label>
+                    <input type="text" id="name" class="form-control">
+                </div>
+                <div class="mb-3 text-start">
+                    <label for="password" class="form-label">密碼</label>
+                    <input type="password" class="form-control">
+                </div>
+                <a href="/register">前往註冊</a>
+                <br>
+                <input class="btn btn-primary mt-4" type="submit" value="送出" style="width:70px">
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}

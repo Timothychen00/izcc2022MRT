@@ -1,4 +1,4 @@
-import os,pymongo
+import os,pymongo,random
 from dotenv import load_dotenv
 load_dotenv()
 class DB():
@@ -15,7 +15,7 @@ class DB():
             data.append([i['name'],i['color'],i['counts'],i['places']])
         return data
 
-    def create_game(self,name,password):
+    def create_game(self,name,password,number):
         result=self.games.find_one({'name':name})
         err=[]
         if result:
@@ -23,8 +23,20 @@ class DB():
         if not err:
             data={
                 'name':name,
-                'password':password
+                'password':password,
+                'number':number,
+                'pin':[],
+                'adminpin':[]
             }
+            pins=[]
+            for i in range(1,number+1):
+                for j in range(2):
+                    temp=''.join(random.sample('zyxwvutsrqponmlkjihgfedcbaABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',6))
+                    while temp in pins:
+                        temp=''.join(random.sample('zyxwvutsrqponmlkjihgfedcbaABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',6))
+                    pins.append(temp)
+                data['pin'].append(pins[i*2-2])
+                data['adminpin'].append(pins[i*2-1])
             self.games.insert_one(data)
         return err
     
@@ -36,7 +48,21 @@ class DB():
             
         return self.games.find(filters)
     
-    def delete_games(self,name=None):
-        pass
+    def join_game(self,name=None,pin=None):
+        if name and pin:
+            print(pin)
+            result=self.games.find_one({'name':name})
+            if result:
+                if pin in result['adminpin']:
+                    return 'admin'
+                elif pin in result['pin']:
+                    return 'team'
+        return 'not allowed'
+    
+    def delete_games(self,name=None,pin=None):
+        result=self.games.find_one({'name':name})
+        if pin in result['adminpin']:
+            self.games.delete_one({'name':name})
+
 
 db_model=DB()

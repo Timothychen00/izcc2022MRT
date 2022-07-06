@@ -19,12 +19,16 @@
                             <div class="modal-body">
                                 {{form.csrf_token()}}
                                 <div class="mb-3 d-flex justify-content-center">
-                                {{form.name.label(class_='form-label me-2 pt-2')}}
-                                {{form.name(class_='form-control',style='width:170px;')}}
+                                    {{form.name.label(class_='form-label me-2 pt-2')}}
+                                    {{form.name(class_='form-control',style='width:170px;')}}
                                 </div>
                                 <div class="mb-3 d-flex justify-content-center">
-                                {{form.password.label(class_='form-label me-2 pt-2')}}
-                                {{form.password(class_='form-control',style='width:170px;')}}
+                                    {{form.password.label(class_='form-label me-2 pt-2')}}
+                                    {{form.password(class_='form-control',style='width:170px;')}}
+                                </div>
+                                <div class="mb-3 d-flex justify-content-center">
+                                    {{form.teamnumber.label(class_='form-label me-2 pt-2')}}
+                                    <input id="teamnumber" name="teamnumber" class="form-control" style="width:170px;" type="number">
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -44,7 +48,36 @@
             <div class="card">
                 <div class="card-body d-flex justify-content-between">
                     <span class="card-title h5">{{i['name']}}</span>
-                    <a href="/games/{{i['name']}}" class="btn btn-primary ms-auto" style="position:relative;right:0;">加入遊戲</a>
+                    <!-- <a href="/games/{{i['name']}}" class="btn btn-primary ms-auto" style="position:relative;right:0;">加入遊戲</a> -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{i['name']}}">
+                        加入遊戲
+                    </button>
+        
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal{{i['name']}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form action="/games" method="post">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">加入遊戲</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{form1.csrf_token()}}
+                                        {{form1.name(class_='form-control visually-hidden',style='width:170px;',value=i['name'])}}
+                                        <div class="mb-3 d-flex justify-content-center">
+                                        {{form1.pin.label(class_='form-label me-2 pt-2')}}
+                                        {{form1.pin(class_='form-control',style='width:170px;')}}
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                                        {{form1.submit(class_='btn btn-primary')}}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
               </div>
         </div>
