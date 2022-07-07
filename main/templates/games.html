@@ -44,7 +44,6 @@
             <div class="card">
                 <div class="card-body d-flex justify-content-between">
                     <span class="card-title h5">{{i['name']}}</span>
-                    <!-- <a href="/games/{{i['name']}}" class="btn btn-primary ms-auto" style="position:relative;right:0;">加入遊戲</a> -->
                     <div>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{i['name']}}">
                             加入遊戲
@@ -52,52 +51,44 @@
                         <button class="delete-button" data-bs-toggle="modal" data-bs-target="#exampleModal{{i['name']}}delete">X</button>
                         <div class="modal fade" id="exampleModal{{i['name']}}delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
-                                <form action="/games" method="post">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">刪除遊戲</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            {{delete_form.csrf_token()}}
-                                            {{delete_form.name(class_='form-control visually-hidden',style='width:170px;',value=i['name'])}}
-                                            <div class="mb-3 d-flex justify-content-center">
-                                            {{delete_form.pin.label(class_='form-label me-2 pt-2')}}
-                                            {{delete_form.pin(class_='form-control',style='width:170px;')}}
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                                            {{delete_form.submit(class_='btn btn-primary')}}
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">刪除遊戲</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3 d-flex justify-content-center">
+                                            <label for="pin{{i['name']}}delete" class="form-label me-2 pt-2">pin</label>
+                                            <input type="text" class="form-control" style="width:170px;" id="pin{{i['name']}}delete">
                                         </div>
                                     </div>
-                                </form>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                                        <button onclick="send('{{i['name']}}','delete');" class="btn btn-primary">送出</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal{{i['name']}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
-                            <form action="/games" method="post">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">加入遊戲</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        {{join_form.csrf_token()}}
-                                        {{join_form.name(class_='form-control visually-hidden',style='width:170px;',value=i['name'])}}
-                                        <div class="mb-3 d-flex justify-content-center">
-                                        {{join_form.pin.label(class_='form-label me-2 pt-2')}}
-                                        {{join_form.pin(class_='form-control',style='width:170px;')}}
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                                        {{join_form.submit(class_='btn btn-primary')}}
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">加入遊戲</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3 d-flex justify-content-center">
+                                        <label for="pin{{i['name']}}join" class="form-label me-2 pt-2">pin</label>
+                                        <input type="text" class="form-control" style="width:170px;" id="pin{{i['name']}}join">
                                     </div>
                                 </div>
-                            </form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                                    <button onclick="send('{{i['name']}}','join');" class="btn btn-primary">送出</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -107,3 +98,11 @@
     </div>
 </div>
 {% endblock main_content %}
+{% block extend_script %}
+<script>
+    function send(name,method){
+        pin=document.getElementById('pin'+name+method);
+        location.href='/games?method='+method+"&name="+name+"&pin="+pin.value;
+    }
+</script>
+{% endblock extend_script %}

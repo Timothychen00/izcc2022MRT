@@ -9,8 +9,8 @@ class CreateForm(FlaskForm):
     submit=SubmitField('送出')
     
 class JoinForm(FlaskForm):
-    name=TextField('名稱',validators=[InputRequired()])
-    pin=TextField('pin',validators=[InputRequired()])
+    name1=TextField('名稱',validators=[InputRequired()])
+    pin1=TextField('pin',validators=[InputRequired()])
     submit=SubmitField('送出')
     
 class DeleteForm(FlaskForm):
