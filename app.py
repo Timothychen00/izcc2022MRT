@@ -5,7 +5,7 @@ import os
 load_dotenv()
 app=Flask(__name__,static_folder='main/static',template_folder='main/templates')
 
-app.secret_key=os.urandom(16).hex()
+app.secret_key='os.urandom(16).hex()'
 app.register_blueprint(app_route)
 
 if __name__=='__main__':

@@ -29,3 +29,7 @@ body{
 .delete-button:hover{
     background-color: rgb(181, 79, 66);
 }
+.team-icon{
+    padding: 10px;
+    border-radius: 1rem;
+}

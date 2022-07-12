@@ -10,3 +10,14 @@ def login_required(a):
             flash('請先加入遊戲')
             return redirect('/games')
     return wrap
+
+def admin_required(a):
+    @wraps(a)
+    def wrap(*args,**kwargs):
+        if 'games' in session:
+            if 'permission' in session['games']:
+                if session['games']['permission']=='admin':
+                    return a(*args,**kwargs)
+        flash('請先加入遊戲')
+        return redirect('/games')
+    return wrap

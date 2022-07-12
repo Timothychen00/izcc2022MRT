@@ -2,8 +2,9 @@
 {% block main_content %}
 <div class="container-fluid">
 	<div class="row justify-content-center">
-		<div class="col-1 mt-5 pt-5">
+		<div class="col-3 mt-5 pt-5 text-center">
 			<h1>{{station}}</h1>
+			<button onlick="location.href='/games/{{session['games']['name']}}/eachstation?station={{station}}&move='">移動</button>
 		</div>
 	</div>
 </div>

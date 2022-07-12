@@ -14,6 +14,7 @@ class DB():
         return result['team']
 
     def create_game(self,name,number):
+        colors=['#e6785a','#5ae6bc','#d8e65a','#5a8de6','#5a68e6','#5ae6c3']
         result=self.games.find_one({'name':name})
         pins=[]
         msg=''
@@ -36,7 +37,7 @@ class DB():
                 data['pin'].append(pins[i*2-2])
                 data['adminpin'].append(pins[i*2-1])
                 msg+="隊員："+pins[i*2-2]+'     隊隨：'+pins[i*2-1]+'\\n'
-                data['team'].append({"color":'red',"counts":3,"places":''})
+                data['team'].append({"color":colors[i%6],"counts":3,"places":'','now':''})
             self.games.insert_one(data)
             print(msg)
             return msg
@@ -56,18 +57,30 @@ class DB():
             result=self.games.find_one({'name':name})
             if result:
                 if pin in result['adminpin']:
-                    return 'admin'
+                    return (result['adminpin'].index(pin),'admin')
                 elif pin in result['pin']:
-                    return 'team'
-        return 'not allowed'
+                    return (result['pin'].index(pin),'normal')
+        return (None,'not allowed')
     
     def delete_games(self,name=None,pin=None):
         print(name,pin)
         print(self.check_permission(name,pin))
-        if self.check_permission(name,pin)=='admin':
+        if self.check_permission(name,pin)[1]=='admin':
             self.games.delete_one({'name':name})
         else:
             print('permission denied')
             return 'permission denied'
+    
+    def edit_scores(self,name,team,increase_value):
+        print(team,type(team))
+        result=self.games.find_one({'name':name})
+        teams=result['team']
+        teams[team]['counts']+=increase_value
+        self.games.update_one({'name':name},{"$set":{'team':teams}})
+        
+    def move(self,name,team,target):
+        result=self.games.find_one({'name':name})
+        teams=result['team'][team]['now']=target
+        self.games.update_one({'name':name},{"$set":{'team':teams}})
 
 db_model=DB()
