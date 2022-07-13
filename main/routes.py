@@ -10,9 +10,9 @@ def home():
 
 @app_route.route('/games/<name>/eachstation')
 def eachstation(name):
+    print(request.args)
     station=request.args.get('station',None)
     move=int(request.args.get('move',0))
-    print(station,move)
     if move:
         move(name,session['games']['team'],station)
         return redirect('/games/'+name)
@@ -79,6 +79,13 @@ def games():
 def each_game(name):
     data=db_model.load_data(name)
     print(data)
+    move=request.args.get('move',None)
+    station=request.args.get('station',None)
+    if station:
+        if move:
+            db_model.move(name,session['games']['team'],station)
+            return redirect('/games/'+name)
+        return render_template('eachstation.html',station=station)
     return render_template('each_game.html',page='map',data=data,total=13)
 
 @app_route.route('/games/<name>/scores')

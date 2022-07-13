@@ -79,8 +79,10 @@ class DB():
         self.games.update_one({'name':name},{"$set":{'team':teams}})
         
     def move(self,name,team,target):
+        print(type(target))
         result=self.games.find_one({'name':name})
-        teams=result['team'][team]['now']=target
+        teams=result['team']
+        teams[team]['now']=target
         self.games.update_one({'name':name},{"$set":{'team':teams}})
 
 db_model=DB()
