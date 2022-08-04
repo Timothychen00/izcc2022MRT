@@ -18,10 +18,25 @@ def eachstation(name):
         return redirect('/games/'+name)
     return render_template('eachstation.html',station=station,page='map')
 
-@app_route.route('/dashboard')
-def dashboard():
-    data=db_model.load_data('666')
-    return render_template('dashboard.html',total=13,data=data,page='dashboard')
+
+@app_route.route('/games/<name>/places')
+def places(name):
+    print(request.args)
+    data=db_model.load_data(name)
+    return render_template('places.html',data=data,page='map')
+
+@app_route.route('/games/<name>/cards')
+def cards(name):
+    print(request.args)
+    data=db_model.load_data(name)
+    return render_template('places.html',data=data,page='map')
+
+@app_route.route('/games/<name>/random')
+def random(name):
+    print(request.args)
+    data=db_model.load_data(name)
+    return render_template('random.html',data=data,page='map')
+
 
 @app_route.route('/control')
 def control_center():
@@ -29,6 +44,7 @@ def control_center():
 
 @app_route.route('/games',methods=['GET','POST'])
 def games():
+    print(str(request.url_rule).split('/')[1])
     create_form=CreateForm()
     games=[]
     
@@ -81,9 +97,13 @@ def each_game(name):
     print(data)
     move=request.args.get('move',None)
     station=request.args.get('station',None)
+    have=request.args.get('have',None)
     if station:
         if move:
             db_model.move(name,session['games']['team'],station)
+            return redirect('/games/'+name)
+        if have:
+            db_model.have(name,session['games']['team'],station)
             return redirect('/games/'+name)
         return render_template('eachstation.html',station=station)
     return render_template('each_game.html',page='map',data=data,total=13)
@@ -114,8 +134,6 @@ def quit():
     session.clear()
     return redirect('/')
 
-@app_route.route('/move')
-def move():
-    
-    db_model.move()
-    return redirect('/games/'+session['games']['name'])
+@app_route.route('/dice')
+def dice():
+    return render_template('dice.html')

@@ -37,7 +37,7 @@ class DB():
                 data['pin'].append(pins[i*2-2])
                 data['adminpin'].append(pins[i*2-1])
                 msg+="隊員："+pins[i*2-2]+'     隊隨：'+pins[i*2-1]+'\\n'
-                data['team'].append({"color":colors[i%6],"counts":3,"places":'','now':''})
+                data['team'].append({"color":colors[i%6],"counts":3,"places":[],'now':''})
             self.games.insert_one(data)
             print(msg)
             return msg
@@ -83,6 +83,13 @@ class DB():
         result=self.games.find_one({'name':name})
         teams=result['team']
         teams[team]['now']=target
+        self.games.update_one({'name':name},{"$set":{'team':teams}})
+        
+    def have(self,name,team,target):
+        result=self.games.find_one({'name':name})
+        teams=result['team']
+        if not target in teams[team]['places']:
+            teams[team]['places'].append(target)
         self.games.update_one({'name':name},{"$set":{'team':teams}})
 
 db_model=DB()

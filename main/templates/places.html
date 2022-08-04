@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block main_content %}
+<div class="container-fluid">
+	<div class="row justify-content-center vh-100 align-items-center">
+        {% for i in data %}
+        <div class='col-12 col-lg-7 d-flex mb-5'>
+            <h3 class='team text-nowrap team-icon mt-2' style='background-color:{{i["color"]}}'>第{{data.index(i)}}小隊</h3>
+            <h3 class="pt-3 ms-1">{{i['places']}}</h3>
+        </div>
+        {% endfor %}
+	</div>
+</div>
+
+{% endblock main_content%}

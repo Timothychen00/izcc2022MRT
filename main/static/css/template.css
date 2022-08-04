@@ -33,3 +33,9 @@ body{
     padding: 10px;
     border-radius: 1rem;
 }
+.dice{
+    height:100px;
+    width:100px;
+    background-color: rgb(206, 206, 206);
+    border-radius: 10%;
+}

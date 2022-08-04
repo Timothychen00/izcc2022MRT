@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block main_content %}
+<div class="container-fluid">
+    <div class="row justify-content-center align-items-center text-center" style="height: 80vh;">
+        <div class="col">
+            <h3 id="result"></h3>
+            <button onclick="randomnumber();" class="btn btn-primary">隨機數字</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+    }
+    function randomnumber(){
+        result=document.getElementById('result');
+        result.innerText=getRandomInt(4)+1;
+    }
+</script>
+{% endblock main_content%}
