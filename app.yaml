@@ -1,0 +1,6 @@
+service: default
+runtime: python37
+env: standard
+entrypoint: gunicorn -b :$PORT app:app
+runtime_config:
+    python_version: 3.7
