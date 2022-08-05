@@ -9,8 +9,10 @@
 					<p>{{task}}</p>
 				{% endfor %}
 			{% endif%}
-			<a href="/games/{{session['games']['name']}}?station={{station}}&move=1" class="btn btn-primary">移動</a>
-			<a href="/games/{{session['games']['name']}}?station={{station}}&have=1" class="btn btn-primary">佔領</a>
+			{%if session['games']['permission']=='admin'%}
+				<a href="/games/{{session['games']['name']}}?station={{station}}&move=1" class="btn btn-primary">移動</a>
+				<a href="/games/{{session['games']['name']}}?station={{station}}&have=1" class="btn btn-primary">佔領</a>
+			{%endif%}
 		</div>
 	</div>
 </div>
