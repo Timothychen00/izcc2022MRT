@@ -88,10 +88,10 @@ def each_game(name):
         if move:
             db_model.move(name,session['games']['team'],station)
             session['now']=station
-            return redirect('/games/'+name)
+            return redirect('/games/'+name+"?station="+station)
         if have:
             db_model.have(name,session['games']['team'],station)
-            return redirect('/games/'+name)
+            return redirect('/games/'+name+"?station="+station)
         return render_template('eachstation.html',station=station,settings=settings)
     return render_template('each_game.html',page='map',data=data,total=13,settings=settings)
 

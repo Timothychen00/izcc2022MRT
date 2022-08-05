@@ -46,6 +46,9 @@
                         {% if 'games' in session %}
                             {% if session['games']['name'] %}
                             <li class="nav-item">
+                                <a class="nav-link" href="#" >{{session['games']['name']}}</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="#" >第{{session['games']['team']}}小隊</a>
                             </li>
                             {% endif %}
