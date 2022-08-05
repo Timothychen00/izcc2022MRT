@@ -1,3 +1,4 @@
+
 from flask import Blueprint, redirect, render_template, request,session,flash,jsonify
 from main.model import db_model
 from main.forms import CreateForm
@@ -8,25 +9,9 @@ app_route=Blueprint('捷大',__name__,static_folder='static',template_folder='te
 def home():
     return render_template('base.html',page='map')
 
-@app_route.route('/games/<name>/eachstation')
-def eachstation(name):
-    print(request.args)
-    station=request.args.get('station',None)
-    move=int(request.args.get('move',0))
-    if move:
-        move(name,session['games']['team'],station)
-        return redirect('/games/'+name)
-    return render_template('eachstation.html',station=station,page='map')
-
 
 @app_route.route('/games/<name>/places')
 def places(name):
-    print(request.args)
-    data=db_model.load_data(name)
-    return render_template('places.html',data=data,page='map')
-
-@app_route.route('/games/<name>/cards')
-def cards(name):
     print(request.args)
     data=db_model.load_data(name)
     return render_template('places.html',data=data,page='map')
@@ -36,11 +21,6 @@ def random(name):
     print(request.args)
     data=db_model.load_data(name)
     return render_template('random.html',data=data,page='map')
-
-
-@app_route.route('/control')
-def control_center():
-    return render_template('control.html',page='control')
 
 @app_route.route('/games',methods=['GET','POST'])
 def games():
@@ -61,7 +41,8 @@ def games():
     else:
         if 'games' in session:
             if 'permission' in session['games']:
-                return redirect('/games/'+session['games']['name'])#前往現在已經加入的遊戲
+                if session['games']['permission']!='not allowed':
+                    return redirect('/games/'+session['games']['name'])#前往現在已經加入的遊戲
             
         name=request.args.get('name',None)
         pin=request.args.get('pin',None)
@@ -75,7 +56,7 @@ def games():
                 print('join')
                 permission=db_model.check_permission(name,pin)
                 print(permission)
-                if permission!='not allowed':
+                if permission[1]!='not allowed':
                     session['games']={}
                     session['games']['permission']=permission[1]#寫入權限pin
                     session['games']['name']=name
@@ -93,20 +74,26 @@ def games():
 @app_route.route('/games/<name>')
 @login_required
 def each_game(name):
+    print('eachgame')
     data=db_model.load_data(name)
-    print(data)
+    # print(data)
     move=request.args.get('move',None)
     station=request.args.get('station',None)
     have=request.args.get('have',None)
+    settings=db_model.load_settings()
+    # print(settings)
+    print(station)
+    # print(session)
     if station:
         if move:
             db_model.move(name,session['games']['team'],station)
+            session['now']=station
             return redirect('/games/'+name)
         if have:
             db_model.have(name,session['games']['team'],station)
             return redirect('/games/'+name)
-        return render_template('eachstation.html',station=station)
-    return render_template('each_game.html',page='map',data=data,total=13)
+        return render_template('eachstation.html',station=station,settings=settings)
+    return render_template('each_game.html',page='map',data=data,total=13,settings=settings)
 
 @app_route.route('/games/<name>/scores')
 @login_required
@@ -134,6 +121,22 @@ def quit():
     session.clear()
     return redirect('/')
 
-@app_route.route('/dice')
-def dice():
-    return render_template('dice.html')
+@app_route.route('/games/<name>/cards')
+def cards(name):
+    get=request.args.get('get',None)
+    delete=request.args.get('delete',None)
+    if get:
+        db_model.get_card(name,session['games']['team'],get)
+        return redirect('/games/'+name+"/cards")
+    if delete:
+        delete=int(delete)
+        db_model.delete_card(name,session['games']['team'],delete)
+        return redirect('/games/'+name+"/cards")
+    data=db_model.load_data(name)
+    cards=data[session['games']['team']]['cards']
+    return render_template('cards.html',cards=cards)
+
+@app_route.before_request
+def session_out():
+    global session
+    print(session)

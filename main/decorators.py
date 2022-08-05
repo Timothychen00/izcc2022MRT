@@ -5,7 +5,8 @@ def login_required(a):
     def wrap(*args,**kwargs):
         if 'games' in session:
             if 'permission' in session['games']:
-                return a(*args,**kwargs)
+                if session['games']['permission']!='not allowed':
+                    return a(*args,**kwargs)
         else:
             flash('請先加入遊戲')
             return redirect('/games')

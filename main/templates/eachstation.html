@@ -4,6 +4,11 @@
 	<div class="row justify-content-center vh-100 align-items-center">
 		<div class="col-3 text-center" style="margin-top:-100px">
 			<h1>{{station}}</h1>
+			{%if station==session['now']%}
+				{% for task in settings[station] %}
+					<p>{{task}}</p>
+				{% endfor %}
+			{% endif%}
 			<a href="/games/{{session['games']['name']}}?station={{station}}&move=1" class="btn btn-primary">移動</a>
 			<a href="/games/{{session['games']['name']}}?station={{station}}&have=1" class="btn btn-primary">佔領</a>
 		</div>

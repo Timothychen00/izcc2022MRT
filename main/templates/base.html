@@ -28,28 +28,31 @@
                             <a class="nav-link {% if page=='map' %}active{% endif %}" aria-current="page" href="/">地圖</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if page=='dice' %}active{% endif %}" href="/dice">骰子</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {% if page=='control' %}active{% endif %}" href="/control">控制台</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link {% if page=='games' %}active{% endif %}" href="/games">遊戲</a>
                         </li>
-                        {% if session['games']['name'] %}
-                        <li class="nav-item">
-                            <a class="nav-link {% if page=='games' %}active{% endif %}" href="/games/{{session['games']['name']}}/places">土地情況</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {% if page=='games' %}active{% endif %}" href="/games/{{session['games']['name']}}/random">骰子</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {% if page=='games' %}active{% endif %}" href="/games/{{session['games']['name']}}/cards">卡片</a>
-                        </li>
-                        {% endif %}
+                        {% if 'games' in session %}
+                            {% if session['games']['name'] %}
+                            <li class="nav-item">
+                                <a class="nav-link {% if page=='games' %}active{% endif %}" href="/games/{{session['games']['name']}}/places">土地情況</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if page=='games' %}active{% endif %}" href="/games/{{session['games']['name']}}/random">骰子</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if page=='games' %}active{% endif %}" href="/games/{{session['games']['name']}}/cards">卡片</a>
+                            </li>
+                            {% endif %}
+                        {%endif%}
 
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        {% if 'games' in session %}
+                            {% if session['games']['name'] %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" >第{{session['games']['team']}}小隊</a>
+                            </li>
+                            {% endif %}
+                        {%endif%}
                         <li class="nav-item me-5">
                             <button class="nav-link btn" onclick="location.href='/quit'">退出</button>
                         </li>
@@ -76,6 +79,7 @@
         </script>
         {% block extend_script %}
         {% endblock extend_script %}
+        <script src="https://kit.fontawesome.com/0eb0dc4b43.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
     </body>
 </html>

@@ -1,12 +1,17 @@
 import os,pymongo,random
+import sys
 from dotenv import load_dotenv
 load_dotenv()
 class DB():
     def __init__(self):
         self.client=pymongo.MongoClient("mongodb+srv://"+os.environ['DB_USER']+":"+os.environ['DB_PASSWORD']+"@cluster0.z3vye.mongodb.net/?retryWrites=true&w=majority",tls=True,tlsAllowInvalidCertificates=True)
         self.db=self.client.izcc
-        self.team=self.db.team
+        self.settings=self.db.settings
         self.games=self.db.games
+    
+    def load_settings(self):
+        result=self.settings.find_one({'type':'settings'})
+        return result
     
     def load_data(self,name):
         result=self.games.find_one({'name':name})
@@ -30,14 +35,14 @@ class DB():
             for i in range(1,number+1):
                 msg+='第'+str(i-1)+'小隊:\\n'
                 for j in range(2):
-                    temp=''.join(random.sample('zyxwvutsrqponmlkjihgfedcbaABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',6))
+                    temp=''.join(random.sample('0123456789',6))
                     while temp in pins:
-                        temp=''.join(random.sample('zyxwvutsrqponmlkjihgfedcbaABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',6))
+                        temp=''.join(random.sample('Z0123456789',6))
                     pins.append(temp)
                 data['pin'].append(pins[i*2-2])
                 data['adminpin'].append(pins[i*2-1])
                 msg+="隊員："+pins[i*2-2]+'     隊隨：'+pins[i*2-1]+'\\n'
-                data['team'].append({"color":colors[i%6],"counts":3,"places":[],'now':''})
+                data['team'].append({"color":colors[i%6],"counts":3,"places":[],'now':'','cards':[]})
             self.games.insert_one(data)
             print(msg)
             return msg
@@ -79,7 +84,8 @@ class DB():
         self.games.update_one({'name':name},{"$set":{'team':teams}})
         
     def move(self,name,team,target):
-        print(type(target))
+        print('move')
+        print(team)
         result=self.games.find_one({'name':name})
         teams=result['team']
         teams[team]['now']=target
@@ -90,6 +96,18 @@ class DB():
         teams=result['team']
         if not target in teams[team]['places']:
             teams[team]['places'].append(target)
+        self.games.update_one({'name':name},{"$set":{'team':teams}})
+        
+    def get_card(self,name:str,team:int,card_id:int):
+        result=self.games.find_one({'name':name})
+        teams=result['team']
+        teams[team]['cards'].append(card_id)
+        self.games.update_one({'name':name},{"$set":{'team':teams}})
+        
+    def delete_card(self,name:str,team:int,card_index:int):
+        result=self.games.find_one({'name':name})
+        teams=result['team']
+        del teams[team]['cards'][card_index]
         self.games.update_one({'name':name},{"$set":{'team':teams}})
 
 db_model=DB()
