@@ -1,51 +1,321 @@
-img[usemap]{
+img[usemap] {
     border: none;
     width: fit-content;
     max-width: 100%;
     height: auto;
 }
-body{
+body {
     background-color: rgb(204, 47, 47);
 }
-.login-card{
+.login-card {
     border-radius: 2rem;
-    height:500px;
-    width: 300px!important;
+    height: 500px;
+    width: 300px !important;
     border-top: 3px rgb(115, 134, 243) solid;
 }
-.login-card input{
-    max-width:170px;
+.login-card input {
+    max-width: 170px;
 }
-.delete-button{
+.delete-button {
     color: white;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
     height: 27px;
     width: 27px;
     padding-top: 0;
-    background-color: rgb(217,87,70);
+    background-color: rgb(217, 87, 70);
     border: none;
     margin-top: 5px;
 }
-.delete-button:hover{
+.delete-button:hover {
     background-color: rgb(181, 79, 66);
 }
-.team-icon{
+.team-icon {
     padding: 10px;
     border-radius: 1rem;
 }
-.dice{
-    height:100px;
-    width:100px;
+.dice {
+    height: 100px;
+    width: 100px;
     background-color: rgb(206, 206, 206);
     border-radius: 10%;
 }
-.cards{
+.cards {
     width: 100%;
     border-radius: 10px;
 }
-.cards-large{
+.cards-large {
     width: 100%;
     padding-left: 50px;
     padding-right: 50px;
     border-radius: 30px;
+}
+
+body {
+    font-size: 16px;
+    font-family: "Montserrat", sans-sherif;
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 20px;
+    margin-bottom: 25vh;
+}
+
+/* 主頁 */
+:root {
+    --color: #3b5cc8;
+}
+
+.hero {
+    position: relative;
+    background: #fff;
+    color: white;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.hero h1 {
+    position: relative;
+    z-index: 1;
+    letter-spacing: 2px;
+    font-size: 5rem;
+    font-weight: bold;
+    font-family: "Noto Sans TC", sans-serif;
+    margin: 0 0 10px;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.9);
+}
+
+.hero h1 > img {
+    height: 120px;
+}
+
+.hero p {
+    position: relative;
+    z-index: 1;
+    font-size: 1.1rem;
+    color: rgba(0, 0, 0, 0.5);
+    line-height: 1.4;
+}
+
+@media screen and (max-width: 500px) {
+    .hero > div > h1 {
+        position: relative;
+        z-index: 1;
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin: 0 0 10px;
+        line-height: 1;
+        color: rgba(0, 0, 0, 0.9);
+    }
+    .hero h1 > img {
+        height: 70px;
+    }
+    .hero p {
+        position: relative;
+        z-index: 1;
+        font-size: 0.9rem;
+        color: rgba(0, 0, 0, 0.5);
+        line-height: 1.4;
+    }
+}
+
+@media screen and (max-width: 280px) {
+    .hero > div > h1 {
+        position: relative;
+        z-index: 1;
+        font-size: 2rem;
+        font-weight: bold;
+        margin: 0 0 10px;
+        line-height: 1;
+        color: rgba(0, 0, 0, 0.9);
+    }
+    .hero h1 > img {
+        height: 50px;
+    }
+    .hero > p {
+        position: relative;
+        z-index: 1;
+        font-size: 0.8rem;
+        color: rgba(0, 0, 0, 0.5);
+        line-height: 1.4;
+    }
+}
+
+/* 按鈕 */
+.btn-wrapper {
+    position: relative;
+    text-align: center;
+    align-items: center;
+}
+
+.join {
+    position: absolute;
+    display: inline-block;
+    margin: 0 auto;
+    margin-top: 30px;
+    right: 0;
+    left: 0;
+    max-width: fit-content;
+    padding: 5px 20px;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    border-radius: 4px;
+    text-decoration: none;
+
+    color: #fff;
+    background-color: #00df9a;
+    z-index: 2;
+    transition: all 0.4s ease-in-out;
+}
+
+.join:hover {
+    color: #fff;
+    background-color: #00cf8e;
+    transition: all 0.4s ease-in-out;
+}
+
+.join > h1 {
+    display: flex;
+    letter-spacing: 1px;
+    font-size: 20px;
+    margin-top: 1.2vh;
+    font-weight: 500;
+    font-family: "Noto Sans TC", sans-serif;
+}
+
+/* Waves 動畫 */
+
+.waves {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 300px;
+    background-color: var(--color);
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+    transition: 500ms;
+}
+
+@media screen and (max-width: 500px) {
+    .waves {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 150px;
+        background-color: var(--color);
+        box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+        transition: 500ms;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .waves {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 120px;
+        background-color: var(--color);
+        box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+        transition: 500ms;
+    }
+}
+
+.waves::before,
+.waves::after {
+    content: "";
+    position: absolute;
+    width: 300vw;
+    height: 300vw;
+    top: -65vw;
+    left: 50%;
+    transform: translate(-50%, -75%);
+}
+
+.waves::before {
+    border-radius: 44%;
+    background: rgba(255, 255, 255, 1);
+    animation: waves 8s linear infinite;
+}
+
+.waves::after {
+    border-radius: 44%;
+    background: rgba(255, 255, 255, 0.5);
+    animation: waves 15s linear infinite;
+}
+
+@keyframes waves {
+    0% {
+        transform: translate(-50%, -75%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -75%) rotate(360deg);
+    }
+}
+
+/* Slide 動畫 */
+
+#slide-1 {
+    position: relative;
+    bottom: -100px;
+    opacity: 0;
+    -webkit-animation: slide 1s forwards;
+    animation: slide 1s forwards;
+}
+
+#slide-2 {
+    position: relative;
+    bottom: -100px;
+    opacity: 0;
+    -webkit-animation: slide 1s forwards;
+    animation: slide 1s forwards;
+    animation-delay: 0.1s;
+}
+
+#slide-3 {
+    position: absolute;
+    margin-top: 100px;
+    opacity: 0;
+    -webkit-animation: slide1 1s forwards;
+    animation: slide1 1s forwards;
+    animation-delay: 0.2s;
+}
+
+@-webkit-keyframes slide {
+    100% {
+        bottom: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes slide {
+    100% {
+        bottom: 0;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes slide1 {
+    100% {
+        margin-top: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes slide1 {
+    100% {
+        margin-top: 0;
+        opacity: 1;
+    }
 }
