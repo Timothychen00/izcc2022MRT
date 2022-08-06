@@ -2,7 +2,7 @@
 {% block main_content %}
 <div class="container-fluid">
     <div class="row justify-content-end">
-        <div class="col-3 mt-3">
+        <div class="col-lg-3 col-5 mt-3 d-inline-flex justify-content-end">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 建立遊戲
             </button>
@@ -40,7 +40,7 @@
     </div>
     <div class="row justify-content-center mt-5 align-content-start" style="overflow:scroll;height:550px">
         {%for i in games %}
-        <div class="col-8 mb-3">
+        <div class="col-12 col-md-8 mb-3">
             <div class="card">
                 <div class="card-body d-flex justify-content-between">
                     <span class="card-title h5">{{i['name']}}</span>
