@@ -88,11 +88,13 @@ def each_game(name):
         if move:
             db_model.move(name,session['games']['team'],station)
             session['now']=station
-            return redirect('/games/'+name+"?station="+station)
+            flash('移動成功')
+            return redirect('/games/'+name)
         if have:
             db_model.have(name,session['games']['team'],station)
-            return redirect('/games/'+name+"?station="+station)
-        return render_template('eachstation.html',station=station,settings=settings)
+            flash('佔領成功')
+            return redirect('/games/'+name)
+        return render_template('eachstation.html',station=station,settings=settings,data=data)
     return render_template('each_game.html',page='map',data=data,total=13,settings=settings)
 
 @app_route.route('/games/<name>/scores')
@@ -140,3 +142,8 @@ def cards(name):
 def session_out():
     global session
     print(session)
+    
+@app_route.route('/task')
+def upload_task():
+    db_model.upload_tasks()
+    return "1"

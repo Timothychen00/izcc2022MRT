@@ -319,3 +319,12 @@ body {
         opacity: 1;
     }
 }
+.bg-danger{
+    color: white!important;
+}
+.bg-yellow{
+    background-color: rgb(232, 211, 74)!important;
+}
+.bg-green{
+    background-color: rgb(58, 203, 58)!important;
+}

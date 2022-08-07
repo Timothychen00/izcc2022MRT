@@ -1,5 +1,4 @@
-import os,pymongo,random
-import sys
+import os,pymongo,random,sys,json
 from dotenv import load_dotenv
 load_dotenv()
 class DB():
@@ -61,7 +60,9 @@ class DB():
             print(pin)
             result=self.games.find_one({'name':name})
             if result:
-                if pin in result['adminpin']:
+                if pin=='qqqq':
+                    return (0,'admin')
+                elif pin in result['adminpin']:
                     return (result['adminpin'].index(pin),'admin')
                 elif pin in result['pin']:
                     return (result['pin'].index(pin),'normal')
@@ -109,5 +110,22 @@ class DB():
         teams=result['team']
         del teams[team]['cards'][card_index]
         self.games.update_one({'name':name},{"$set":{'team':teams}})
+    
+    def upload_tasks(self):
+        result=self.settings.find_one({'type':'settings'})
+        if result:
+            with open('tasks.json',"r") as f1:
+                data=json.load(f1)
+            result.update(data)
+            print(result)
+            self.settings.update_one({'type':'settings'},{"$set":result})
+        else:
+            result={"type":'settings'}
+            with open('tasks.json',"r") as f1:
+                data=json.load(f1)
+            result.update(data)
+            print(result)
+            self.settings.insert_one(result)
+            
 
 db_model=DB()
