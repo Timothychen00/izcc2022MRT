@@ -9,15 +9,18 @@ class DB():
         self.games=self.db.games
     
     def load_settings(self):
+        '''this function is used to load the global settings data from mongodb'''
         result=self.settings.find_one({'type':'settings'})
         return result
     
     def load_data(self,name:str):
+        '''this function is used to load the team data of a game'''
         result=self.games.find_one({'name':name})
         print(result['team'])
         return result['team']
 
     def create_game(self,name:str,number:int):
+        '''this function is used to create a game and initialize the game'''
         colors=['#e6785a','#5ae6bc','#d8e65a','#5a8de6','#5a68e6','#5ae6c3']
         result=self.games.find_one({'name':name})
         pins=[]
@@ -49,6 +52,7 @@ class DB():
             print('name existed')
         
     def find_game(self,name:str=None):
+        '''this function is used to return games'''
         if name:
             filters={'name':name}
         else:
@@ -56,6 +60,7 @@ class DB():
         return self.games.find(filters)
     
     def check_permission(self,name:str=None,pin:int=None):
+        '''this function is used to check the permission(normal,admin,not allowed) of the input pin'''
         if name and pin:
             print(pin)
             result=self.games.find_one({'name':name})
@@ -69,6 +74,7 @@ class DB():
         return (None,'not allowed')
     
     def delete_games(self,name:str=None,pin:int=None):
+        '''this function is used to delete a game while the permission is allowed(admin)'''
         print(name,pin)
         print(self.check_permission(name,pin))
         if self.check_permission(name,pin)[1]=='admin':
@@ -78,11 +84,13 @@ class DB():
             return 'permission denied'
     
     def edit_scores(self,name:str,team:int,increase_value:int):
+        '''this function is used to edit the score of a team'''
         teams=self.load_data(name)
         teams[team]['counts']+=increase_value
         self.games.update_one({'name':name},{"$set":{'team':teams}})
         
     def move(self,name:str,team:int,target:str):
+        '''this function is used to change the position of a team'''
         print('move')
         print(team)
         teams=self.load_data(name)
@@ -90,6 +98,7 @@ class DB():
         self.games.update_one({'name':name},{"$set":{'team':teams}})
         
     def have(self,name:str,team:int,target:str):#佔領
+        '''this function is used to occupy a place for a team'''
         teams=self.load_data(name)
         for i in teams:#清除其他隊伍的內容
             if target in  i['places']:
@@ -97,20 +106,22 @@ class DB():
         print(teams)
         if not target in teams[team]['places']:
             teams[team]['places'].append(target)
-        
         self.games.update_one({'name':name},{"$set":{'team':teams}})
         
     def get_card(self,name:str,team:int,card_id:int):
+        '''this function is used to add a card to a team's pocket'''
         teams=self.load_data(name)
         teams[team]['cards'].append(card_id)
         self.games.update_one({'name':name},{"$set":{'team':teams}})
         
     def delete_card(self,name:str,team:int,card_index:int):
+        '''this function is used to delete a card from a team's pocket'''
         teams=self.load_data(name)
         del teams[team]['cards'][card_index]
         self.games.update_one({'name':name},{"$set":{'team':teams}})
     
     def upload_tasks(self):
+        '''this function is to upload the tasks.json from local file system to mongodb settings collection'''
         result=self.load_settings()
         if result:
             with open('tasks.json',"r") as f1:
