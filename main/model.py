@@ -12,12 +12,12 @@ class DB():
         result=self.settings.find_one({'type':'settings'})
         return result
     
-    def load_data(self,name):
+    def load_data(self,name:str):
         result=self.games.find_one({'name':name})
         print(result['team'])
         return result['team']
 
-    def create_game(self,name,number):
+    def create_game(self,name:str,number:int):
         colors=['#e6785a','#5ae6bc','#d8e65a','#5a8de6','#5a68e6','#5ae6c3']
         result=self.games.find_one({'name':name})
         pins=[]
@@ -48,14 +48,14 @@ class DB():
         else:
             print('name existed')
         
-    def find_game(self,name=None):
+    def find_game(self,name:str=None):
         if name:
             filters={'name':name}
         else:
             filters={}
         return self.games.find(filters)
     
-    def check_permission(self,name=None,pin=None):
+    def check_permission(self,name:str=None,pin:int=None):
         if name and pin:
             print(pin)
             result=self.games.find_one({'name':name})
@@ -68,7 +68,7 @@ class DB():
                     return (result['pin'].index(pin),'normal')
         return (None,'not allowed')
     
-    def delete_games(self,name=None,pin=None):
+    def delete_games(self,name:str=None,pin:int=None):
         print(name,pin)
         print(self.check_permission(name,pin))
         if self.check_permission(name,pin)[1]=='admin':
@@ -77,42 +77,41 @@ class DB():
             print('permission denied')
             return 'permission denied'
     
-    def edit_scores(self,name,team,increase_value):
-        print(team,type(team))
-        result=self.games.find_one({'name':name})
-        teams=result['team']
+    def edit_scores(self,name:str,team:int,increase_value:int):
+        teams=self.load_data(name)
         teams[team]['counts']+=increase_value
         self.games.update_one({'name':name},{"$set":{'team':teams}})
         
-    def move(self,name,team,target):
+    def move(self,name:str,team:int,target:str):
         print('move')
         print(team)
-        result=self.games.find_one({'name':name})
-        teams=result['team']
+        teams=self.load_data(name)
         teams[team]['now']=target
         self.games.update_one({'name':name},{"$set":{'team':teams}})
         
-    def have(self,name,team,target):
-        result=self.games.find_one({'name':name})
-        teams=result['team']
+    def have(self,name:str,team:int,target:str):#佔領
+        teams=self.load_data(name)
+        for i in teams:#清除其他隊伍的內容
+            if target in  i['places']:
+                del i['places'][i['places'].index(target)]
+        print(teams)
         if not target in teams[team]['places']:
             teams[team]['places'].append(target)
+        
         self.games.update_one({'name':name},{"$set":{'team':teams}})
         
     def get_card(self,name:str,team:int,card_id:int):
-        result=self.games.find_one({'name':name})
-        teams=result['team']
+        teams=self.load_data(name)
         teams[team]['cards'].append(card_id)
         self.games.update_one({'name':name},{"$set":{'team':teams}})
         
     def delete_card(self,name:str,team:int,card_index:int):
-        result=self.games.find_one({'name':name})
-        teams=result['team']
+        teams=self.load_data(name)
         del teams[team]['cards'][card_index]
         self.games.update_one({'name':name},{"$set":{'team':teams}})
     
     def upload_tasks(self):
-        result=self.settings.find_one({'type':'settings'})
+        result=self.load_settings()
         if result:
             with open('tasks.json',"r") as f1:
                 data=json.load(f1)
