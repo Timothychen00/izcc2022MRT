@@ -1,6 +1,7 @@
 from flask import session,flash,redirect,request
 from functools import wraps
 def login_required(a):
+    '''this decorator is used to block the permission not allowed'''
     @wraps(a)
     def wrap(*args,**kwargs):
         if 'games' in session:
@@ -13,6 +14,7 @@ def login_required(a):
     return wrap
 
 def admin_required(a):
+    '''this decorator is used to block the permission not allowed and normal'''
     @wraps(a)
     def wrap(*args,**kwargs):
         if 'games' in session:
