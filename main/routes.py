@@ -5,6 +5,10 @@ from main.forms import CreateForm
 from main.decorators import login_required,admin_required
 app_route=Blueprint('捷大',__name__,static_folder='static',template_folder='templates')
 
+@app_route.before_request
+def print_session():
+    print(session)
+
 @app_route.route('/')
 def home():
     return render_template('base.html',page='map')
@@ -80,9 +84,9 @@ def each_game(name):
     move=request.args.get('move',None)
     station=request.args.get('station',None)
     have=request.args.get('have',None)
-    settings=db_model.load_settings()
+    settings=db_model.load_settings('map')
     # print(settings)
-    print(station)
+    # print(station)
     # print(session)
     if station:
         if move:

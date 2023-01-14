@@ -2,16 +2,21 @@ import os,pymongo,random,sys,json
 from dotenv import load_dotenv
 load_dotenv()
 class DB():
+    
     def __init__(self):
         self.client=pymongo.MongoClient("mongodb+srv://"+os.environ['DB_USER']+":"+os.environ['DB_PASSWORD']+"@cluster0.z3vye.mongodb.net/?retryWrites=true&w=majority",tls=True,tlsAllowInvalidCertificates=True)
         self.db=self.client.izcc
         self.settings=self.db.settings
         self.games=self.db.games
     
-    def load_settings(self):
+    def load_settings(self,keyword:str):
         '''this function is used to load the global settings data from mongodb'''
-        result=self.settings.find_one({'type':'settings'})
-        return result
+        map=self.settings.find_one({'type':'settings'})
+        collapse=self.settings.find_one({'type':'collapse_settings'})
+        settings={'map':map,'collapse':collapse}
+        if keyword:
+            settings=settings[keyword]
+        return settings
     
     def load_data(self,name:str):
         '''this function is used to load the team data of a game'''
@@ -136,6 +141,4 @@ class DB():
             result.update(data)
             print(result)
             self.settings.insert_one(result)
-            
-
 db_model=DB()
