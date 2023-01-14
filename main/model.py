@@ -12,7 +12,7 @@ class DB():
     def load_settings(self,keyword:str):
         '''this function is used to load the global settings data from mongodb'''
         map=self.settings.find_one({'type':'settings'})
-        collapse=self.settings.find_one({'type':'collapse_settings'})
+        collapse=self.settings.find_one({'type':'collapse'})
         settings={'map':map,'collapse':collapse}
         if keyword:
             settings=settings[keyword]
@@ -21,7 +21,7 @@ class DB():
     def load_data(self,name:str):
         '''this function is used to load the team data of a game'''
         result=self.games.find_one({'name':name})
-        print(result['team'])
+        # print(result['team'])
         return result['team']
 
     def create_game(self,name:str,number:int):
