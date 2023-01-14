@@ -23,43 +23,43 @@ def staged_auto_decrease(collapse_settings,stage):
         for i in games:
             teams=db_model.load_data(i['name'])
             for k in range(len(teams)):
-                if teams[k]['now'] in collapse_settings[stage]:
+                if teams[k]['now'] !='' and teams[k]['now'] !='' in collapse_settings['map'][stage]:
                     db_model.edit_scores(i['name'],k,collapse_settings['decrease_score']*-1)
                     print(i['name'],k,'\b小扣分 now(before):',teams[k]['counts'],' ['+str(datetime.datetime.now()),']')
-    
 
-@scheduler.task('cron', id='崩塌開始_stage1', day='*', hour='12', minute='17', second='30')
 def stage1():
     print('stage1')
     collapse_settings=db_model.load_settings('collapse')
     staged_auto_decrease(collapse_settings,'stage1')
-    
-    
-@scheduler.task('cron', id='崩塌開始_stage2', day='*', hour='12', minute='18', second='00')
+
 def stage2():
     print('stage2')
     scheduler.delete_job('自動扣分')
     collapse_settings=db_model.load_settings('collapse')
     staged_auto_decrease(collapse_settings,'stage2')
 
-@scheduler.task('cron', id='崩塌開始_stage3', day='*', hour='12', minute='18', second='30')
 def stage3():
     print('stage3')
     scheduler.delete_job('自動扣分')
     collapse_settings=db_model.load_settings('collapse')
     staged_auto_decrease(collapse_settings,'stage3')
 
-@scheduler.task('cron', id='崩塌開始_stage4', day='*', hour='12', minute='19', second='00')
 def stage4():
     print('stage4')
     scheduler.delete_job('自動扣分')
     print('結束')
 
-
-
-
 if __name__=='__main__':
     app.config.from_object(Config())
     scheduler.init_app(app)
     scheduler.start()
+    
+    collapse=db_model.load_settings('collapse')
+    stages={'stage1':stage1,'stage2':stage2,'stage3':stage3,'stage4':stage4}
+    
+    for l in stages:#jobs info
+        time=collapse['time'][l].split(':')
+        scheduler.add_job(id='崩塌開始_'+l,func=stages[l],trigger='cron',day='*', hour=time[0], minute=time[1], second=time[2])
+    for k in scheduler.get_jobs():
+        print(k)
     app.run(debug=False,port=8080)

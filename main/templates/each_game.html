@@ -13,11 +13,11 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-lg-8 col-12">
+        <div class="col-lg-8 col-12 p-0" style="position:relative">
             <img src="/static/img/routemap_2021.png" width="950" height="942" usemap="#MRTMap">
+            <div style="background-color:aqua;position:absolute;top:0px" id="point">
+            </div>
             <map name="MRTMap">
-
-
                 <area title="淡水" href="/games/{{session['games']['name']}}?station=淡水" coords="113,78,173,113" shape="rect">
                 <area title="民權西路" href="/games/{{session['games']['name']}}?station=民權西路" coords="375,539,467,539,467,567,448,568,446,602,373,602" shape="poly">
                 <area title="雙連" href="/games/{{session['games']['name']}}?station=雙連" coords="334,613,409,644" shape="rect">
@@ -95,7 +95,6 @@
                 <area title="台北橋" href="/games/{{session['games']['name']}}?station=台北橋" coords="231,279,247,297" shape="rect"> <!--done279,231,297,247-->
                 <area title="大橋頭" href="/games/{{session['games']['name']}}?station=大橋頭" coords="308,246,325,265" shape="rect"> <!--done246,308,265,325-->
 
-                <!-- <area title="大橋頭" href="/games/{{session['games']['name']}}?station=大橋頭" coords="310,546,360,602" shape="rect"> -->
                 <area title="中山國小" href="/games/{{session['games']['name']}}?station=中山國小" coords="470,545,470,571,454,572,452,600,554,600,553,546" shape="poly">
                 <area title="行天宮" href="/games/{{session['games']['name']}}?station=行天宮" coords="487,601,576,632" shape="rect">
                 <area title="頂溪" href="/games/{{session['games']['name']}}?station=頂溪" coords="339,939,402,971" shape="rect">
@@ -174,6 +173,13 @@
 </div>
 {% endblock main_content %}
 {% block extend_script %}
+<script src="/static/js/jquery.rwdImageMaps.min.js"></script>
+<script>
+    $(document).ready(function (e) {
+        $("img[usemap]").rwdImageMaps();
+        console.log(1);
+    });
+</script>
 <script>
     function edit(type,team){
         value=document.getElementById(String(team)+type).value;
@@ -184,6 +190,19 @@
 
         document.getElementById("cancel"+team+type).click();
         document.getElementById('scores').innerHTML=xhr.responseText;
+    }
+</script>
+
+<script>
+    function edit_position(){
+        var element = document.querySelector('area[title="先嗇宮"]');
+        var point=document.getElementById('point');
+        x1=element.coords.split(',')[0];
+        y1=element.coords.split(',')[1];
+        x2=element.coords.split(',')[2];
+        y2=element.coords.split(',')[3];
+        r=parseFloat(x2)-parseFloat(x1);
+        point.style='border-radius:50%;height:'+r+'px;width:'+r+'px;background-color:aqua;position:absolute;left:'+((parseFloat(x1)+parseFloat(x2))/2-r/2)+"px;top:"+((parseFloat(y1)+parseFloat(y2))/2-r/2)+'px;';
     }
 </script>
 {% endblock extend_script %}
