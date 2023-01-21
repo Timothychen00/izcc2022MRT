@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>卡片效果範例</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+</head>
+
+<body style="overflow-y: hidden;">
+
+    <div style="position:fixed;top:0;left:0;background-color:rgba(0, 0, 0, 0.29);height:100vh;width:100vw;z-index:100;" id="mask" class="visually-hidden"></div>
+
+
+    <div class="container-fluid" >
+        <div class="row justify-content-center mt-5 pt-5">
+            <div class="col-6 d-inline-flex justify-content-center mt-5"style="z-index:200!important;">
+                <img src="back.png" alt="" style="max-width: 300px;"
+                    class="visually-hidden" id='card' >
+            </div>
+            <div class="col-8 text-center h3 mt-2 visually-hidden " id="text" >
+                點擊翻開
+            </div>
+            <div class="col-8 d-inline-flex justify-content-center mt-2">
+                <button class="btn btn-primary" id="start_button">抽卡</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+        </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+        </script>
+
+    <script>
+        let start=document.querySelector("#start_button");
+        let element = document.querySelector('#card');
+        let mask=document.querySelector('#mask');
+
+        var times = 0;
+        start.addEventListener('click',()=>{
+            element.classList.remove("visually-hidden");
+            element.classList.add("animate__animated",'animate__zoomInDown');
+            start.classList.add('visually-hidden');
+            mask.classList.remove('visually-hidden');
+        });
+        element.addEventListener('animationend', () => {
+            if (!times) {
+                // do something
+
+                text = document.querySelector('#text');//提示文字
+                text.classList.remove('visually-hidden');
+                text.classList.add('animate__animated', 'animate__fadeIn','animate__infinite');
+
+                element.addEventListener('click', () => {//旋轉
+                    element.classList.remove('animate__fadeIn');
+                    element.classList.add('animate__flip');
+                    element.src = 'card2.jpg'
+                    text.classList.add("visually-hidden");
+                });
+            }else if(times==1){
+                window.addEventListener('click',()=>{//收起卡片
+                    element.classList='animate__animated animate__backOutDown';
+                })
+            }else if(times==2){
+                mask.classList='animate__animated animate__fadeOut animate__faster';
+            }
+            times += 1;
+        });
+    </script>
+</body>
+
+</html>

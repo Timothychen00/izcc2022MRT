@@ -5,13 +5,17 @@ from main.model import db_model
 from apscheduler.schedulers.background import BackgroundScheduler
 from flask_apscheduler import APScheduler
 from dotenv import load_dotenv
+from flask_cors import CORS
 import os
 load_dotenv()
 scheduler=APScheduler(BackgroundScheduler({'apscheduler.timezone': 'Asia/Taipei','daemon':False}))
 class Config(object):
     SCHEDULER_API_ENABLED = True
 
+
+
 app=Flask(__name__,static_folder='main/static',template_folder='main/templates')
+CORS(app,resources={r"*": {"origins": "*"}})
 
 app.secret_key=os.urandom(16).hex()
 app.register_blueprint(app_route)

@@ -3,6 +3,7 @@ from flask import Blueprint, redirect, render_template, request,session,flash,js
 from main.model import db_model
 from main.forms import CreateForm
 from main.decorators import login_required,admin_required
+
 app_route=Blueprint('捷大',__name__,static_folder='static',template_folder='templates')
 
 @app_route.before_request
@@ -39,6 +40,9 @@ def games():
             msg=db_model.create_game(create_form.name.data,create_form.teamnumber.data)
             if msg:
                 flash(msg)
+                
+                
+                
         else:
             print(create_form.name.errors,create_form.teamnumber.errors)
             return redirect('/games')
@@ -92,7 +96,7 @@ def each_game(name):
         if move:
             db_model.move(name,session['games']['team'],station)
             session['now']=station
-            flash('移動成功')
+            # flash('移動成功')
             return redirect('/games/'+name)
         if have:
             db_model.have(name,session['games']['team'],station)
@@ -151,3 +155,13 @@ def session_out():
 def upload_task():
     db_model.upload_tasks()
     return "1"
+
+
+# api
+@app_route.route('/games/<name>/api/teams')
+def api_teams(name):
+    print(1)
+    teams=db_model.load_data(name)
+    print(teams)
+    print(len(teams))
+    return jsonify(teams)
