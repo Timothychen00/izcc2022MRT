@@ -16,7 +16,7 @@
     <div class="row justify-content-center mt-5 pt-5 text-center">
         {%if session['games']['permission']=='admin'%}
         <div class="col-12 d-inline-flex justify-content-center mt-5 ">
-            <button class="btn btn-primary" style="font-size: 50px;border-radius:30px" id="start_button">抽卡</button>
+            <button class="btn btn-primary" style="font-size: 50px;border-radius:.7rem;width:200px" id="start_button">抽卡</button>
         </div>
         {%endif%}
         <h3 class="mb-5 mt-5">你的卡片</h3>
@@ -67,37 +67,48 @@
     function wait() {//收起卡片
         element.classList = 'animate__animated animate__backOutDown';
     }
+    function reset() {//重置
+        mask.classList = 'd-none container-fluid';
+        element.classList = 'd-none';
+        text.classList = 'col-8 text-center h3 mt-2 d-none ';
+        window.removeEventListener('click', wait);//重置
+        if (window._id){
+            clearTimeout(window._id);
+        }
+    }
 
-    start.addEventListener('click', () => {
+    start.addEventListener('click', () => {//動畫前的初始化
         times = 0;
         element.classList.remove("d-none");
         element.src = '/static/img/cards/back.png'
         element.classList = "animate__animated animate__zoomInDown";
         mask.classList.remove('d-none');
     });
-    element.addEventListener('animationend', () => {
+
+    element.addEventListener('animationend', () => {//動畫開始
         if (!times) {
             // do something
             text = document.querySelector('#text');//提示文字
             text.classList.remove('d-none');
             text.classList.add('animate__animated', 'animate__fadeIn', 'animate__infinite');
 
-            element.addEventListener('click', () => {//旋轉
+            element.addEventListener('click',function flip_card(){//旋轉
                 element.classList.remove('animate__fadeIn');
                 element.classList.add('animate__flip');
-                element.src = '/static/img/cards/card2.jpg'
+                random_num=(getRandomInt(19) + 1);
+
+                element.src = '/static/img/cards/card'+random_num+'.jpg';
+                fetch('/games/{{session['games']['name']}}/cards?get='+random_num,{ method: "GET",mode: 'cors' })
+                .then((res)=>(res.json()));
                 text.classList.add("d-none");
+                element.removeEventListener('click',flip_card);//用來避免動畫過程中持續翻排（在觸發之後就取消觸發條件）
             });
+            window._id=setTimeout(reset,5000);//如果出bug即時消除
         } else if (times == 1) {
             window.addEventListener('click', wait)
         } else if (times == 2) {
             mask.classList = 'animate__animated animate__fadeOut animate__faster';
-            setTimeout(function reset() {
-                mask.classList = 'd-none container-fluid';
-                element.classList = 'd-none';
-                text.classList = 'col-8 text-center h3 mt-2 d-none ';
-                window.removeEventListener('click', wait);//重置
-            }, 1000);
+            setTimeout(reset, 500);
         }
         times += 1;
     });
