@@ -1,42 +1,115 @@
 {% extends 'base.html' %}
 {% block main_content %}
+<div style="position:fixed;top:0;left:0;background-color:rgba(0, 0, 0, 0.29);height:100vh;width:100vw;z-index:100;"
+    id="mask" class="d-none container-fluid">
+    <div class="row justify-content-center mt-5 pt-5">
+        <div class="col-6 d-inline-flex justify-content-center mt-5" style="z-index:200!important;">
+            <img src="/static/img/cards/back.png" alt="" style="max-width: 300px;" class="d-none" id='card'>
+        </div>
+        <div class="col-8 text-center h3 mt-2 d-none " id="text" style="z-index: 200;">
+            點擊翻開
+        </div>
+        <!-- <div class="col-8 d-inline-flex justify-content-center mt-2">
+            <button class="btn btn-primary" id="start_button">抽卡</button>
+        </div> -->
+    </div>
+</div>
+
+<!--  -->
+<div class="container-fluid" id="animation " style="position:fixed;top:0;left:0">
+
+</div>
+<!--  -->
+
+
 <div class="container">
     <div class="row justify-content-center mt-5 pt-5 text-center">
         {%if session['games']['permission']=='admin'%}
         <div class="col-12 d-inline-flex justify-content-center mt-5 ">
-            <button class="btn btn-primary" style="font-size: 50px;border-radius:30px"  onclick="get_card()">抽卡</button>
+            <button class="btn btn-primary" style="font-size: 50px;border-radius:30px" id="start_button">抽卡</button>
         </div>
         {%endif%}
         <h3 class="mb-5 mt-5">你的卡片</h3>
     </div>
     <div class="row text-center p-3 gy-3" style="background-color:rgb(214, 221, 221);border-radius:30px;">
-        
-            {% for i in cards %}
-            <div class="col-3 d-inline-flex justify-content-center">
-                <img src="/static/img/cards/card{{i}}.jpg" alt="" class="cards" data-bs-toggle="modal" data-bs-target="#exampleModal{{cards.index(i)}}{{i}}">
-            </div>
 
-            <div class="modal fade" id="exampleModal{{cards.index(i)}}{{i}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content d-inline-flex justify-content-center" style="background-color:transparent;border:none">
+
+        {% for i in cards %}
+        <div class="col-3 d-inline-flex justify-content-center">
+            <img src="/static/img/cards/card{{i}}.jpg" alt="" class="cards" data-bs-toggle="modal"
+                data-bs-target="#exampleModal{{cards.index(i)}}{{i}}">
+        </div>
+
+        <div class="modal fade" id="exampleModal{{cards.index(i)}}{{i}}" tabindex="-1"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content d-inline-flex justify-content-center"
+                    style="background-color:transparent;border:none">
                     <img src="/static/img/cards/card{{i}}.jpg" alt="" class="cards-large">
                     {%if session['games']['permission']=='admin'%}
-                        <div class="modal-footer d-inline-flex justify-content-center border-0">
-                            <button class="fa-solid fa-trash btn" style="color:rgb(255, 90, 75);background-color:transparent;font-size:30px" onclick="location.href='/games/{{session['games']['name']}}/cards?delete={{cards.index(i)}}'"></button>
-                        </div>
+                    <div class="modal-footer d-inline-flex justify-content-center border-0">
+                        <button class="fa-solid fa-trash btn"
+                            style="color:rgb(255, 90, 75);background-color:transparent;font-size:30px"
+                            onclick="location.href='/games/{{session['games']['name']}}/cards?delete={{cards.index(i)}}'"></button>
+                    </div>
                     {%endif%}
                 </div>
-                </div>
             </div>
-            {% endfor %}
+        </div>
+        {% endfor %}
     </div>
 </div>
 <script>
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
     }
-    function get_card(){
-        location.href='/games/{{session['games']['name']}}/cards?get='+(getRandomInt(19)+1);
+    function get_card() {
+        location.href = '/games/{{session['games']['name']}}/cards?get=' + (getRandomInt(19) + 1);
     }
+</script>
+<script>
+    let start = document.querySelector("#start_button");
+    let element = document.querySelector('#card');
+    let mask = document.querySelector('#mask');
+    let animation = document.querySelector("#animation");
+
+    var times = 0;
+    function wait() {//收起卡片
+        element.classList = 'animate__animated animate__backOutDown';
+    }
+
+    start.addEventListener('click', () => {
+        times = 0;
+        element.classList.remove("d-none");
+        element.src = '/static/img/cards/back.png'
+        element.classList = "animate__animated animate__zoomInDown";
+        mask.classList.remove('d-none');
+    });
+    element.addEventListener('animationend', () => {
+        if (!times) {
+            // do something
+            text = document.querySelector('#text');//提示文字
+            text.classList.remove('d-none');
+            text.classList.add('animate__animated', 'animate__fadeIn', 'animate__infinite');
+
+            element.addEventListener('click', () => {//旋轉
+                element.classList.remove('animate__fadeIn');
+                element.classList.add('animate__flip');
+                element.src = '/static/img/cards/card2.jpg'
+                text.classList.add("d-none");
+            });
+        } else if (times == 1) {
+            window.addEventListener('click', wait)
+        } else if (times == 2) {
+            mask.classList = 'animate__animated animate__fadeOut animate__faster';
+            setTimeout(function reset() {
+                mask.classList = 'd-none container-fluid';
+                element.classList = 'd-none';
+                text.classList = 'col-8 text-center h3 mt-2 d-none ';
+                window.removeEventListener('click', wait);//重置
+            }, 1000);
+        }
+        times += 1;
+    });
 </script>
 {% endblock %}
