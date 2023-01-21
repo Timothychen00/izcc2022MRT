@@ -21,7 +21,7 @@
         {%endif%}
         <h3 class="mb-5 mt-5">你的卡片</h3>
     </div>
-    <div class="row text-center p-3 gy-3" style="background-color:rgb(214, 221, 221);border-radius:30px;">
+    <div class="row text-center p-3 gy-3" style="background-color:rgb(214, 221, 221);border-radius:30px;" id="card_box">
 
 
         {% for i in cards %}
@@ -55,6 +55,32 @@
     }
     function get_card() {
         location.href = '/games/{{session['games']['name']}}/cards?get=' + (getRandomInt(19) + 1);
+    }
+    function add_card(id){
+        let card_box=document.querySelector('#card_box');
+        card_index=card_box.children.length/2;
+        str='\
+        <div class="col-3 d-inline-flex justify-content-center">\
+            <img src="/static/img/cards/card'+id+'.jpg" alt="" class="cards" data-bs-toggle="modal"\
+                data-bs-target="#exampleModal'+card_index+id+'">\
+        </div>\
+        <div class="modal fade" id="exampleModal'+card_index+id+'" tabindex="-1"\
+            aria-labelledby="exampleModalLabel" aria-hidden="true">\
+            <div class="modal-dialog modal-dialog-centered">\
+                <div class="modal-content d-inline-flex justify-content-center"\
+                    style="background-color:transparent;border:none">\
+                    <img src="/static/img/cards/card'+id+'.jpg" alt="" class="cards-large">\
+                    {%if session['games']['permission']=='admin'%}\
+                    <div class="modal-footer d-inline-flex justify-content-center border-0">\
+                        <button class="fa-solid fa-trash btn"\
+                            style="color:rgb(255, 90, 75);background-color:transparent;font-size:30px"\
+                            onclick="location.href=\'/games/{{session['games']['name']}}/cards?delete='+card_index+'\'"></button>\
+                    </div>\
+                    {%endif%}\
+                </div>\
+            </div>\
+        </div>'
+        card_box.innerHTML+=str;
     }
 </script>
 <script>
@@ -100,6 +126,8 @@
                 element.src = '/static/img/cards/card'+random_num+'.jpg';
                 fetch('/games/{{session['games']['name']}}/cards?get='+random_num,{ method: "GET",mode: 'cors' })
                 .then((res)=>(res.json()));
+                //可以加錯誤排除
+                add_card(random_num);
                 text.classList.add("d-none");
                 element.removeEventListener('click',flip_card);//用來避免動畫過程中持續翻排（在觸發之後就取消觸發條件）
             });
