@@ -249,7 +249,7 @@
             </h3>
             <div class="progress w-100 mt-4 ms-2">
                 <div class="progress-bar" role="progressbar" style="width: {{i['counts']/total*100}}%"
-                    aria-valuenow="25" aria-valuemin="100" id="{{data.index(i)}}">{{i['counts']}}</div>
+                    aria-valuenow="25" aria-valuemin="100" id="team{{data.index(i)}}">{{i['counts']}}</div>
             </div>
 
             {%if 'games' in session%}
@@ -316,7 +316,7 @@
         <div class='col-12 col-lg-7 d-flex mb-5'>
             <h3 class='team text-nowrap team-icon mt-2' style='background-color:{{i["color"]}}'>第{{data.index(i)}}小隊
             </h3>
-            <h3 class="pt-3 ms-1">{%for k in i['places']%}{{k}}、{%endfor%}</h3>
+            <h3 class="pt-3 ms-1" id='place{{data.index(i)}}'>{%for k in i['places']%}{{k}}、{%endfor%}</h3>
         </div>
         {% endfor %}
     </div>
@@ -327,7 +327,6 @@
 <script>
     $(document).ready(function (e) {
         $("img[usemap]").rwdImageMaps();
-        console.log(1);
     });
 </script>
 <script>
@@ -336,7 +335,7 @@
         var xhr = new XMLHttpRequest();
         xhr.open('get', '/games/{{session["games"]["name"]}}/scores?team=' + team + '&type=' + type + '&value=' + String(value), false);
         xhr.send();
-        console.log(xhr.responseText);
+        //console.log(xhr.responseText);
 
         document.getElementById("cancel" + team + type).click();
         document.getElementById('scores').innerHTML = xhr.responseText;
@@ -347,7 +346,7 @@
     function load_data() {
         fetch('http://127.0.0.1:8080/games/捷大/api/teams', { method: "GET", mode: 'cors' })
             .then((response) => response.json())
-            .then((res) => { console.log(res); window.teams = res; draw_teams() ;stages()});
+            .then((res) => { console.log(res); window.teams = res; draw_teams() ;stages();team_data()});
     }
     
     function draw_teams(data) {
@@ -389,6 +388,27 @@
                 msg.innerHTML='目前階段：'+res[0]+'          目前狀態： '+msgs;
             })
     }
+
+    function team_data(){
+        max=0;
+        for(i in window.teams){
+            if (window.teams[i]['counts']>max)
+                max=window.teams[i]['counts'];
+        }
+        for(i in window.teams){
+            id='#team'+String(i);
+            let temp=document.querySelector(id);
+            percent=window.teams[i]['counts']/max*100;
+            console.log('隊伍'+window.teams[i]['counts']);
+            temp.style="width:"+percent+'%';
+            temp.innerHTML=window.teams[i]['counts'];
+
+            id_2='#place'+String(i);
+            let temp_place=document.querySelector(id_2);
+            
+        }
+    }
+
     load_data();
     setInterval(load_data, 5000);
     draw_teams();

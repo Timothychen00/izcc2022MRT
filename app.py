@@ -29,7 +29,7 @@ def staged_auto_decrease(collapse_settings,stage):
             for k in range(len(teams)):
                 if '0' not in stage:
                     stage_tuple=['stage0','stage1','stage2','stage3','stage4']
-                    if teams[k]['now'] !='' and teams[k]['now'] !='' in collapse_settings['map'][stage_tuple(stage_tuple.index(stage)-1)]['warn']:#在上一個階段的警告區進行扣分
+                    if teams[k]['now'] !='' and teams[k]['now'] !='' and teams[k]['now'] in collapse_settings['map'][stage_tuple[stage_tuple.index(stage)-1]]['warn']:#在上一個階段的警告區進行扣分
                         db_model.edit_scores(i['name'],k,collapse_settings['decrease_score']*-1)
                         print(i['name'],k,'\b小扣分 now(before):',teams[k]['counts'],' ['+str(datetime.datetime.now()),']')
 
