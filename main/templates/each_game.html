@@ -17,8 +17,8 @@
 
     </div>
     <div class="row justify-content-center">
-        <div class="col-lg-8 col-12 p-0" style="position:relative">
-            <img src="/static/img/map-stage0.png" width="950" height="942" usemap="#MRTMap" id="base_img">
+        <div class="col-lg-8 col-12 p-0 d-inline-flex justify-content-center" style="position:relative">
+            <img src="/static/img/map-stage0.png" width="942" height="950" usemap="#MRTMap" id="base_img">
             <div style="background-color:aqua;position:absolute;top:0px" id="box">
             </div>
             <map name="MRTMap">
@@ -321,6 +321,19 @@
         {% endfor %}
     </div>
 </div>
+<!-- toast -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="/static/img/logo.png" class="rounded me-2" style="height:13px" alt="...">
+            <strong class="me-auto">IZCC-MRT</strong>
+            <small>just now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="toast_msg">
+        </div>
+    </div>
+</div>
 {% endblock main_content %}
 {% block extend_script %}
 <script src="/static/js/jquery.rwdImageMaps.min.js"></script>
@@ -342,13 +355,13 @@
     }
 </script>
 
-<script >
+<script>
     function load_data() {
         fetch('http://127.0.0.1:8080/games/捷大/api/teams', { method: "GET", mode: 'cors' })
             .then((response) => response.json())
-            .then((res) => { console.log(res); window.teams = res; draw_teams() ;stages();team_data()});
+            .then((res) => { console.log(res); window.teams = res; draw_teams(); stages(); team_data(); toast(); });
     }
-    
+
     function draw_teams(data) {
         var box = document.getElementById('box');
         // console.log(window.teams)
@@ -364,7 +377,7 @@
             let r = parseFloat(e_x2) - parseFloat(e_x1);
             r *= 1.4;
             // console.log((parseFloat(y1)+parseFloat(y2))/2);
-    
+
             let k = "<div style='border-radius:50%;border:3px black solid;height:" + r + 'px;width:' + r + 'px;background-color:' + window.teams[i]['color'] + ';position:absolute;left:' + ((parseFloat(x1) + parseFloat(x2)) / 2.00 - r / 2.00) + "px;top:" + ((parseFloat(y1) + parseFloat(y2)) / 2 - r / 2) + 'px;text-align:center;color:black;font-weight:900\'>' + i + '</div>';
             // console.log(k);
             element.innerHTML = k;
@@ -377,38 +390,58 @@
             .then(res => (res.json()))
             .then(res => {
                 base_img.src = '/static/img/map-stage' + res[0] + '.png';//res[0]=>current stages
-                msgs="";
-                if (res[1]=='safe')
-                    msgs='<span style="color:green">目前在安全區</span>';
-                else if(res[1]=='danger')
-                    msgs='<span style="color:red">目前在危險區（扣分中）</span>';
-                else if(res[1]=='warn')
-                    msgs='<span style="color:yellow">目前在警告區（即將進行扣分）</span>';
-                
-                msg.innerHTML='目前階段：'+res[0]+'          目前狀態： '+msgs;
+                msgs = "";
+                if (res[1] == 'safe')
+                    msgs = '<span style="color:green">目前在安全區</span>';
+                else if (res[1] == 'danger')
+                    msgs = '<span style="color:red">目前在危險區（扣分中）</span>';
+                else if (res[1] == 'warn')
+                    msgs = '<span style="color:yellow">目前在警告區（即將進行扣分）</span>';
+
+                msg.innerHTML = '目前階段：' + res[0] + '          目前狀態： ' + msgs;
             })
     }
 
-    function team_data(){
-        max=0;
-        for(i in window.teams){
-            if (window.teams[i]['counts']>max)
-                max=window.teams[i]['counts'];
+    function team_data() {
+        max = 0;
+        for (i in window.teams) {
+            if (window.teams[i]['counts'] > max)
+                max = window.teams[i]['counts'];
         }
-        for(i in window.teams){
-            id='#team'+String(i);
-            let temp=document.querySelector(id);
-            percent=window.teams[i]['counts']/max*100;
-            console.log('隊伍'+window.teams[i]['counts']);
-            temp.style="width:"+percent+'%';
-            temp.innerHTML=window.teams[i]['counts'];
+        for (i in window.teams) {
+            id = '#team' + String(i);
+            let temp = document.querySelector(id);
+            percent = window.teams[i]['counts'] / max * 100;
+            console.log('隊伍' + window.teams[i]['counts']);
+            temp.style = "width:" + percent + '%';
+            temp.innerHTML = window.teams[i]['counts'];
 
-            id_2='#place'+String(i);
-            let temp_place=document.querySelector(id_2);
-            temp_place.innerHTML='';
-            for(k in window.teams[i]['places'])
-                temp_place.innerHTML+=window.teams[i]['places'][k]+'、';
+            id_2 = '#place' + String(i);
+            let temp_place = document.querySelector(id_2);
+            temp_place.innerHTML = '';
+            for (k in window.teams[i]['places'])
+                temp_place.innerHTML += window.teams[i]['places'][k] + '、';
         }
+    }
+
+    function toast() {
+        let toast = document.querySelector("#liveToast");
+        let toast_msg = document.querySelector('#toast_msg');
+        let msg = '';
+        let time = new Date();
+        if (time.getHours() == 0 && time.getMinutes() == 8)
+            msg = '崩塌即將開始（第一階段）';
+        else if (time.getHours() == 15 && time.getMinutes() == 0)
+            msg = '崩塌即將開始（第二階段）';
+        else if (time.getHours() == 16 && time.getMinutes() == 0)
+            msg = '崩塌即將開始（第三階段）';
+        else if (time.getHours() == 17 && time.getMinutes() == 0)
+            msg = '崩塌即將開始（第四階段）';
+        if (msg != '') {
+            toast_msg.innerHTML = msg;
+            toast.classList = 'toast show';
+        }else
+            toast.classList = 'toast hide';
     }
 
     load_data();

@@ -80,4 +80,4 @@ if __name__=='__main__':
         scheduler.add_job(id='崩塌開始_'+l,func=stages[l],trigger='cron',day='*', hour=time[0], minute=time[1], second=time[2],misfire_grace_time=900)
     for k in scheduler.get_jobs():
         print(k)
-    app.run(debug=False,port=8080)
+    app.run(debug=False,port=8080,host='0.0.0.0')

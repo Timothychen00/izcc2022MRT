@@ -7,10 +7,6 @@ import datetime
 
 app_route=Blueprint('捷大',__name__,static_folder='static',template_folder='templates')
 
-# print(session)@app_route.before_request
-# def print_session():
-    
-
 @app_route.route('/')
 def home():
     return render_template('base.html',page='map')
