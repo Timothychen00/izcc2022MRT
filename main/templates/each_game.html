@@ -9,8 +9,12 @@
     <div class="row justify-content-center text-center">
         <div class="col-4 mb-3 mt-5 d-inline-flex align-items-center justify-content-center">
             <img src="/static/img/location.webp" alt="" style="height:40px;">
-            <span class="h3 pt-3 ps-2">現在位置：{{data[session['games']['team']]['now']}}</span>
+            <h3 class="h3 pt-3 ps-2">現在位置：{{data[session['games']['team']]['now']}}</h3>
         </div>
+        <div class="col-9 mb-5 mt-2">
+            <h3 id="msg" style="white-space: pre;"></h3>
+        </div>
+
     </div>
     <div class="row justify-content-center">
         <div class="col-lg-8 col-12 p-0" style="position:relative">
@@ -339,19 +343,54 @@
     }
 </script>
 
-<script>
+<script >
+    function load_data() {
+        fetch('http://127.0.0.1:8080/games/捷大/api/teams', { method: "GET", mode: 'cors' })
+            .then((response) => response.json())
+            .then((res) => { console.log(res); window.teams = res; draw_teams() ;stages()});
+    }
+    
+    function draw_teams(data) {
+        var box = document.getElementById('box');
+        // console.log(window.teams)
+        for (i in window.teams) {
+            let element = document.querySelector('area[title="' + window.teams[i]['now'] + '"]');
+            let x1 = element.coords.split(',')[0];
+            let y1 = element.coords.split(',')[1];
+            let x2 = element.coords.split(',')[2];
+            let y2 = element.coords.split(',')[3];
+            let element2 = document.querySelector('area[title="雙連"]');
+            let e_x1 = element2.coords.split(',')[0];
+            let e_x2 = element2.coords.split(',')[2];
+            let r = parseFloat(e_x2) - parseFloat(e_x1);
+            r *= 1.4;
+            // console.log((parseFloat(y1)+parseFloat(y2))/2);
+    
+            let k = "<div style='border-radius:50%;border:3px black solid;height:" + r + 'px;width:' + r + 'px;background-color:' + window.teams[i]['color'] + ';position:absolute;left:' + ((parseFloat(x1) + parseFloat(x2)) / 2.00 - r / 2.00) + "px;top:" + ((parseFloat(y1) + parseFloat(y2)) / 2 - r / 2) + 'px;text-align:center;color:black;font-weight:900\'>' + i + '</div>';
+            // console.log(k);
+            element.innerHTML = k;
+        }
+    }
     function stages() {
-        let base_img = document.querySelector('base_img');
-        fetch('/games/{{session["games"]["name"]}}/api/stages_check', { method: "GET", mode: 'cors' })
+        let base_img = document.querySelector('#base_img');
+        let msg = document.querySelector('#msg')
+        fetch('/games/{{session["games"]["name"]}}/api/stages_check?now=' + window.teams[parseInt('{{ session["games"]["team"] }}')]['now'], { method: "GET", mode: 'cors' })
             .then(res => (res.json()))
             .then(res => {
-                base_img.src = '/static/img/map-stage' + res[0]+'.png';//res[0]=>current stages
+                base_img.src = '/static/img/map-stage' + res[0] + '.png';//res[0]=>current stages
+                msgs="";
+                if (res[1]=='safe')
+                    msgs='<span style="color:green">目前在安全區</span>';
+                else if(res[1]=='danger')
+                    msgs='<span style="color:red">目前在危險區（扣分中）</span>';
+                else if(res[1]=='warn')
+                    msgs='<span style="color:yellow">目前在警告區（即將進行扣分）</span>';
                 
-
-
+                msg.innerHTML='目前階段：'+res[0]+'          目前狀態： '+msgs;
             })
-
     }
+    load_data();
+    setInterval(load_data, 5000);
+    draw_teams();
 </script>
-<script src="/static/js/ajax.js"></script>
 {% endblock extend_script %}

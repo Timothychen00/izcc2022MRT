@@ -7,9 +7,9 @@ import datetime
 
 app_route=Blueprint('捷大',__name__,static_folder='static',template_folder='templates')
 
-@app_route.before_request
-def print_session():
-    print(session)
+# print(session)@app_route.before_request
+# def print_session():
+    
 
 @app_route.route('/')
 def home():
@@ -83,7 +83,6 @@ def games():
 @app_route.route('/games/<name>')
 @login_required
 def each_game(name):
-    stages=stages_check()
     print('eachgame')
     data=db_model.load_data(name)
     # print(data)
@@ -105,7 +104,7 @@ def each_game(name):
             flash('佔領成功')
             return redirect('/games/'+name)
         return render_template('eachstation.html',station=station,settings=settings,data=data)
-    return render_template('each_game.html',page='map',data=data,total=13,settings=settings,stages=stages)
+    return render_template('each_game.html',page='map',data=data,total=13,settings=settings)
 
 @app_route.route('/games/<name>/scores')
 @login_required
@@ -148,10 +147,10 @@ def cards(name):
     cards=data[session['games']['team']]['cards']
     return render_template('cards.html',cards=cards)
 
-@app_route.before_request
-def session_out():
-    global session
-    print(session)
+# @app_route.before_request
+# def session_out():
+#     global session
+#     print(session)
     
 @app_route.route('/task')
 def upload_task():
@@ -164,7 +163,7 @@ def upload_task():
 def api_teams(name):
     print(1)
     teams=db_model.load_data(name)
-    print(teams)
+    # print(teams)
     print(len(teams))
     return jsonify(teams)
 
@@ -185,4 +184,15 @@ def stages_check(name):
 # stage2 => 15:00
 # stage3 => 16:00
 # stage4 => 17:00
-    return stages
+    msg='safe'
+    now=request.args.get('now',None)
+    collapse_settings=db_model.load_settings('collapse')
+    # collapse_settings[stages]
+    print(now,collapse_settings['map']['stage'+str(stages)]['warn'])
+    if stages>0:
+        if now in collapse_settings['map']['stage'+str(stages)]['warn']:
+            msg='warn'
+        elif stages>1 and stages<4:
+            if now in collapse_settings['map']['stage'+str(stages-1)]['warn']:
+                msg='danger'
+    return jsonify(stages,msg)
