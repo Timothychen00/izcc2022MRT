@@ -63,7 +63,9 @@ def stage4():
         scheduler.delete_job('自動扣分')
     except:
         pass
-    print('結束')
+    collapse_settings=db_model.load_settings('collapse')
+    staged_auto_decrease(collapse_settings,4)
+    # print('結束')
 
 if __name__=='__main__':
     app.config.from_object(Config())

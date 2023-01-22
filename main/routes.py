@@ -161,7 +161,6 @@ def upload_task():
 # api
 @app_route.route('/games/<name>/api/teams')
 def api_teams(name):
-    print(1)
     teams=db_model.load_data(name)
     # print(teams)
     print(len(teams))
@@ -180,10 +179,12 @@ def stages_check(name):
         stages=3
     elif date.hour==17:
        stages=4
-# stage1 => 14:50
-# stage2 => 15:00
-# stage3 => 16:00
-# stage4 => 17:00
+       
+    # stage1 => 14:50
+    # stage2 => 15:00
+    # stage3 => 16:00
+    # stage4 => 17:00
+    
     msg='safe'
     now=request.args.get('now',None)
     collapse_settings=db_model.load_settings('collapse')
