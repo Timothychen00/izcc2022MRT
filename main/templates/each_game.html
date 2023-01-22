@@ -405,6 +405,7 @@
 
             id_2='#place'+String(i);
             let temp_place=document.querySelector(id_2);
+            temp_place.innerHTML='';
             for(k in window.teams[i]['places'])
                 temp_place.innerHTML+=window.teams[i]['places'][k]+'、';
         }
