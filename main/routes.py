@@ -188,11 +188,14 @@ def stages_check(name):
     now=request.args.get('now',None)
     collapse_settings=db_model.load_settings('collapse')
     # collapse_settings[stages]
-    print(now,collapse_settings['map']['stage'+str(stages)]['warn'])
+    
     if stages>0:
         if now in collapse_settings['map']['stage'+str(stages)]['warn']:
             msg='warn'
-        elif stages>1 and stages<4:
-            if now in collapse_settings['map']['stage'+str(stages-1)]['warn']:
-                msg='danger'
+
+        if stages>1:
+            for i in range(stages-1,0,-1):# from stages to 1
+                if now in collapse_settings['map']['stage'+str(i)]['warn']:
+                    msg='danger'
+
     return jsonify(stages,msg)
