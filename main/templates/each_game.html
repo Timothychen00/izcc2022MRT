@@ -14,136 +14,246 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-lg-8 col-12 p-0" style="position:relative">
-            <img src="/static/img/map-origin.png" width="950" height="942" usemap="#MRTMap">
+            <img src="/static/img/map-stage0.png" width="950" height="942" usemap="#MRTMap" id="base_img">
             <div style="background-color:aqua;position:absolute;top:0px" id="box">
             </div>
             <map name="MRTMap">
-                <area title="淡水" href="/games/{{session['games']['name']}}?station=淡水" coords="113,78,173,113" shape="rect">
-                <area title="民權西路" href="/games/{{session['games']['name']}}?station=民權西路" coords="369,242,406,265" shape="rect"> <!--done-->
-                <area title="雙連" href="/games/{{session['games']['name']}}?station=雙連" coords="378,289,398,308" shape="rect"><!---->
-                <area title="中山" href="/games/{{session['games']['name']}}?station=中山" coords="369,332,410,356" shape="rect"><!---->
-                <area title="台北車站" href="/games/{{session['games']['name']}}?station=台北車站" coords="369,414,408,439" shape="rect"><!---->
-                <area title="台大醫院" href="/games/{{session['games']['name']}}?station=台大醫院" coords="378,461,397,483" shape="rect"><!---->
-                <area title="中正紀念堂" href="/games/{{session['games']['name']}}?station=中正紀念堂" coords="368,504,408,527" shape="rect"><!---->
-                <area title="東門" href="/games/{{session['games']['name']}}?station=東門" coords="458,508,498,529" shape="rect"><!---->
-                <area title="大安森林公園" href="/games/{{session['games']['name']}}?station=大安森林公園" coords="524,507,542,527" shape="rect"><!---->
-                <area title="大安" href="/games/{{session['games']['name']}}?station=大安" coords="568,504,606,529" shape="rect"><!---->
-                <area title="信義安和" href="/games/{{session['games']['name']}}?station=信義安和" coords="645,506,663,529" shape="rect"><!---->
-                <area title="台北101/世貿" href="/games/{{session['games']['name']}}?station=台北101/世貿" coords="697,506,715,527" shape="rect"><!---->
-                <area title="象山" href="/games/{{session['games']['name']}}?station=象山" coords="750,506,769,528" shape="rect"><!---->
-                <area title="松山" href="/games/{{session['games']['name']}}?station=松山" coords="752,334,769,358" shape="rect"><!---->
-                <area title="南京三民" href="/games/{{session['games']['name']}}?station=南京三民" coords="694,334,714,356" shape="rect"><!---->
-                <area title="台北小巨蛋" href="/games/{{session['games']['name']}}?station=台北小巨蛋" coords="644,334,663,356" shape="rect"><!---->
-                <area title="南京復興" href="/games/{{session['games']['name']}}?station=南京復興" coords="568,333,606,355" shape="rect"><!---->
-                <area title="松江南京" href="/games/{{session['games']['name']}}?station=松江南京" coords="471,331,510,356" shape="rect"><!---->
-                <area title="北門" href="/games/{{session['games']['name']}}?station=北門" coords="308,370,328,388" shape="rect"><!---->
-                <area title="西門" href="/games/{{session['games']['name']}}?station=西門" coords="297,416,337,437" shape="rect"><!---->
-                <area title="小南門" href="/games/{{session['games']['name']}}?station=小南門" coords="315,499,331,522" shape="rect"><!---->
-                <area title="古亭" href="/games/{{session['games']['name']}}?station=古亭" coords="415,553,453,575" shape="rect"><!---->
-                <area title="台電大樓" href="/games/{{session['games']['name']}}?station=台電大樓" coords="463,592,481,615" shape="rect"><!---->
-                <area title="公館" href="/games/{{session['games']['name']}}?station=公館" coords="493,625,512,648" shape="rect"><!---->
-                <area title="萬隆" href="/games/{{session['games']['name']}}?station=萬隆" coords="526,659,543,681" shape="rect"><!---->
-                <area title="景美" href="/games/{{session['games']['name']}}?station=景美" coords="554,698,572,719" shape="rect"><!---->
-                <area title="大坪林" href="/games/{{session['games']['name']}}?station=大坪林" coords="547,1071,640,1106" shape="rect">
-                <area title="七張" href="/games/{{session['games']['name']}}?station=七張" coords="555,802,572,824" shape="rect"><!---->
-                <area title="新店區公所" href="/games/{{session['games']['name']}}?station=新店區公所" coords="554,843,573,866" shape="rect"><!---->
-                <area title="新店" href="/games/{{session['games']['name']}}?station=新店" coords="554,886,573,906" shape="rect"><!---->
-                <area title="南港展覽館" href="/games/{{session['games']['name']}}?station=南港展覽館" coords="874,279,913,302" shape="rect"><!---->
-                <area title="南港" href="/games/{{session['games']['name']}}?station=南港" coords="885,334,903,355" shape="rect"><!---->
-                <area title="昆陽" href="/games/{{session['games']['name']}}?station=昆陽" coords="886,383,903,404" shape="rect"><!---->
-                <area title="後山埤" href="/games/{{session['games']['name']}}?station=後山埤" coords="847,416,866,436" shape="rect"><!---->
-                <area title="永春" href="/games/{{session['games']['name']}}?station=永春" coords="794,416,812,436" shape="rect"><!---->
-                <area title="市政府" href="/games/{{session['games']['name']}}?station=市政府" coords="744,416,762,438" shape="rect"><!---->
-                <area title="國父紀念館" href="/games/{{session['games']['name']}}?station=國父紀念館" coords="691,415,708,436" shape="rect"><!---->
-                <area title="忠孝敦化" href="/games/{{session['games']['name']}}?station=忠孝敦化" coords="639,416,657,438" shape="rect"><!---->
-                <area title="忠孝復興" href="/games/{{session['games']['name']}}?station=忠孝復興" coords="568,415,606,439" shape="rect"><!---->
-                <area title="忠孝新生" href="/games/{{session['games']['name']}}?station=忠孝新生" coords="471,414,510,439" shape="rect"><!---->
-                <area title="善導寺" href="/games/{{session['games']['name']}}?station=善導寺" coords="430,416,449,439" shape="rect"><!---->
-                <area title="龍山寺" href="/games/{{session['games']['name']}}?station=龍山寺" coords="225,416,241,439" shape="rect"><!--225,416,241,439-->
-                <area title="江子翠" href="/games/{{session['games']['name']}}?station=江子翠" coords="180,466,200,487" shape="rect"><!--done-->
-                <area title="新埔(民生)" href="/games/{{session['games']['name']}}?station=新埔(民生)" coords="156,516,199,534" shape="rect"> <!--done-->
-                <area title="板橋" href="/games/{{session['games']['name']}}?station=板橋" coords="181,567,225,591" shape="rect"><!--done-->
-                <area title="府中" href="/games/{{session['games']['name']}}?station=府中" coords="183,617,199,638" shape="rect"><!--done-->
-                <area title="亞東醫院" href="/games/{{session['games']['name']}}?station=亞東醫院" coords="183,664,200,685" shape="rect"> <!--done-->
-                <area title="南港軟體園區" href="/games/{{session['games']['name']}}?station=南港軟體園區" coords="886,227,900,249" shape="rect"><!---->
-                <area title="東湖" href="/games/{{session['games']['name']}}?station=東湖" coords="885,180,903,202" shape="rect"><!---->
-                <area title="葫洲" href="/games/{{session['games']['name']}}?station=葫洲" coords="881,133,899,154" shape="rect"><!---->
-                <area title="大湖公園" href="/games/{{session['games']['name']}}?station=大湖公園" coords="833,127,851,149" shape="rect"><!---->
-                <area title="內湖" href="/games/{{session['games']['name']}}?station=內湖" coords="779,127,797,148" shape="rect"><!---->
-                <area title="文德" href="/games/{{session['games']['name']}}?station=文德" coords="730,127,748,150" shape="rect"><!---->
-                <area title="港墘" href="/games/{{session['games']['name']}}?station=港墘" coords="682,127,700,149" shape="rect"><!---->
-                <area title="西湖" href="/games/{{session['games']['name']}}?station=西湖" coords="633,127,651,149" shape="rect"><!---->
-                <area title="劍南路" href="/games/{{session['games']['name']}}?station=劍南路" coords="581,133,599,155" shape="rect"><!---->
-                <area title="大直" href="/games/{{session['games']['name']}}?station=大直" coords="576,179,597,203" shape="rect"><!---->
-                <area title="松山機場" href="/games/{{session['games']['name']}}?station=松山機場" coords="578,227,597,249" shape="rect"><!---->
-                <area title="中山國中" href="/games/{{session['games']['name']}}?station=中山國中" coords="578,274,596,294" shape="rect"><!---->
-                <area title="新北產業園區" href="/games/{{session['games']['name']}}?station=新北產業園區" coords="41,342,60,364" shape="rect"><!--done-->
-                <area title="幸福" href="/games/{{session['games']['name']}}?station=幸福" coords="42,394,61,416" shape="rect"> <!--done-->
-                <area title="頭前庄" href="/games/{{session['games']['name']}}?station=頭前庄" coords="67,435,105,458" shape="rect"> <!--done-->
-                <area title="板新" href="/games/{{session['games']['name']}}?station=板新" coords="247,605,264,627" shape="rect"><!--done-->
-                <area title="中原" href="/games/{{session['games']['name']}}?station=中原" coords="246,653,263,677" shape="rect"><!---->
-                <area title="橋和" href="/games/{{session['games']['name']}}?station=橋和" coords="255,704,275,726" shape="rect"><!---->
-                <area title="中和" href="/games/{{session['games']['name']}}?station=中和" coords="308,705,326,728" shape="rect"><!---->
-                <area title="景安" href="/games/{{session['games']['name']}}?station=景安" coords="359,702,398,726" shape="rect"><!---->
-                <area title="景平" href="/games/{{session['games']['name']}}?station=景平" coords="424,704,444,725" shape="rect"><!---->
-                <area title="秀朗橋" href="/games/{{session['games']['name']}}?station=秀朗橋" coords="462,729,481,750" shape="rect"><!---->
-                <area title="十四張" href="/games/{{session['games']['name']}}?station=十四張" coords="505,748,521,767" shape="rect"><!---->
+                <area title="淡水" href="/games/{{session['games']['name']}}?station=淡水" coords="113,78,173,113"
+                    shape="rect">
+                <area title="民權西路" href="/games/{{session['games']['name']}}?station=民權西路" coords="369,242,406,265"
+                    shape="rect"> <!--done-->
+                <area title="雙連" href="/games/{{session['games']['name']}}?station=雙連" coords="378,289,398,308"
+                    shape="rect"><!---->
+                <area title="中山" href="/games/{{session['games']['name']}}?station=中山" coords="369,332,410,356"
+                    shape="rect"><!---->
+                <area title="台北車站" href="/games/{{session['games']['name']}}?station=台北車站" coords="369,414,408,439"
+                    shape="rect"><!---->
+                <area title="台大醫院" href="/games/{{session['games']['name']}}?station=台大醫院" coords="378,461,397,483"
+                    shape="rect"><!---->
+                <area title="中正紀念堂" href="/games/{{session['games']['name']}}?station=中正紀念堂" coords="368,504,408,527"
+                    shape="rect"><!---->
+                <area title="東門" href="/games/{{session['games']['name']}}?station=東門" coords="458,508,498,529"
+                    shape="rect"><!---->
+                <area title="大安森林公園" href="/games/{{session['games']['name']}}?station=大安森林公園" coords="524,507,542,527"
+                    shape="rect"><!---->
+                <area title="大安" href="/games/{{session['games']['name']}}?station=大安" coords="568,504,606,529"
+                    shape="rect"><!---->
+                <area title="信義安和" href="/games/{{session['games']['name']}}?station=信義安和" coords="645,506,663,529"
+                    shape="rect"><!---->
+                <area title="台北101/世貿" href="/games/{{session['games']['name']}}?station=台北101/世貿"
+                    coords="697,506,715,527" shape="rect"><!---->
+                <area title="象山" href="/games/{{session['games']['name']}}?station=象山" coords="750,506,769,528"
+                    shape="rect"><!---->
+                <area title="松山" href="/games/{{session['games']['name']}}?station=松山" coords="752,334,769,358"
+                    shape="rect"><!---->
+                <area title="南京三民" href="/games/{{session['games']['name']}}?station=南京三民" coords="694,334,714,356"
+                    shape="rect"><!---->
+                <area title="台北小巨蛋" href="/games/{{session['games']['name']}}?station=台北小巨蛋" coords="644,334,663,356"
+                    shape="rect"><!---->
+                <area title="南京復興" href="/games/{{session['games']['name']}}?station=南京復興" coords="568,333,606,355"
+                    shape="rect"><!---->
+                <area title="松江南京" href="/games/{{session['games']['name']}}?station=松江南京" coords="471,331,510,356"
+                    shape="rect"><!---->
+                <area title="北門" href="/games/{{session['games']['name']}}?station=北門" coords="308,370,328,388"
+                    shape="rect"><!---->
+                <area title="西門" href="/games/{{session['games']['name']}}?station=西門" coords="297,416,337,437"
+                    shape="rect"><!---->
+                <area title="小南門" href="/games/{{session['games']['name']}}?station=小南門" coords="315,499,331,522"
+                    shape="rect"><!---->
+                <area title="古亭" href="/games/{{session['games']['name']}}?station=古亭" coords="415,553,453,575"
+                    shape="rect"><!---->
+                <area title="台電大樓" href="/games/{{session['games']['name']}}?station=台電大樓" coords="463,592,481,615"
+                    shape="rect"><!---->
+                <area title="公館" href="/games/{{session['games']['name']}}?station=公館" coords="493,625,512,648"
+                    shape="rect"><!---->
+                <area title="萬隆" href="/games/{{session['games']['name']}}?station=萬隆" coords="526,659,543,681"
+                    shape="rect"><!---->
+                <area title="景美" href="/games/{{session['games']['name']}}?station=景美" coords="554,698,572,719"
+                    shape="rect"><!---->
+                <area title="大坪林" href="/games/{{session['games']['name']}}?station=大坪林" coords="547,1071,640,1106"
+                    shape="rect">
+                <area title="七張" href="/games/{{session['games']['name']}}?station=七張" coords="555,802,572,824"
+                    shape="rect"><!---->
+                <area title="新店區公所" href="/games/{{session['games']['name']}}?station=新店區公所" coords="554,843,573,866"
+                    shape="rect"><!---->
+                <area title="新店" href="/games/{{session['games']['name']}}?station=新店" coords="554,886,573,906"
+                    shape="rect"><!---->
+                <area title="南港展覽館" href="/games/{{session['games']['name']}}?station=南港展覽館" coords="874,279,913,302"
+                    shape="rect"><!---->
+                <area title="南港" href="/games/{{session['games']['name']}}?station=南港" coords="885,334,903,355"
+                    shape="rect"><!---->
+                <area title="昆陽" href="/games/{{session['games']['name']}}?station=昆陽" coords="886,383,903,404"
+                    shape="rect"><!---->
+                <area title="後山埤" href="/games/{{session['games']['name']}}?station=後山埤" coords="847,416,866,436"
+                    shape="rect"><!---->
+                <area title="永春" href="/games/{{session['games']['name']}}?station=永春" coords="794,416,812,436"
+                    shape="rect"><!---->
+                <area title="市政府" href="/games/{{session['games']['name']}}?station=市政府" coords="744,416,762,438"
+                    shape="rect"><!---->
+                <area title="國父紀念館" href="/games/{{session['games']['name']}}?station=國父紀念館" coords="691,415,708,436"
+                    shape="rect"><!---->
+                <area title="忠孝敦化" href="/games/{{session['games']['name']}}?station=忠孝敦化" coords="639,416,657,438"
+                    shape="rect"><!---->
+                <area title="忠孝復興" href="/games/{{session['games']['name']}}?station=忠孝復興" coords="568,415,606,439"
+                    shape="rect"><!---->
+                <area title="忠孝新生" href="/games/{{session['games']['name']}}?station=忠孝新生" coords="471,414,510,439"
+                    shape="rect"><!---->
+                <area title="善導寺" href="/games/{{session['games']['name']}}?station=善導寺" coords="430,416,449,439"
+                    shape="rect"><!---->
+                <area title="龍山寺" href="/games/{{session['games']['name']}}?station=龍山寺" coords="225,416,241,439"
+                    shape="rect"><!--225,416,241,439-->
+                <area title="江子翠" href="/games/{{session['games']['name']}}?station=江子翠" coords="180,466,200,487"
+                    shape="rect"><!--done-->
+                <area title="新埔(民生)" href="/games/{{session['games']['name']}}?station=新埔(民生)" coords="156,516,199,534"
+                    shape="rect"> <!--done-->
+                <area title="板橋" href="/games/{{session['games']['name']}}?station=板橋" coords="181,567,225,591"
+                    shape="rect"><!--done-->
+                <area title="府中" href="/games/{{session['games']['name']}}?station=府中" coords="183,617,199,638"
+                    shape="rect"><!--done-->
+                <area title="亞東醫院" href="/games/{{session['games']['name']}}?station=亞東醫院" coords="183,664,200,685"
+                    shape="rect"> <!--done-->
+                <area title="南港軟體園區" href="/games/{{session['games']['name']}}?station=南港軟體園區" coords="886,227,900,249"
+                    shape="rect"><!---->
+                <area title="東湖" href="/games/{{session['games']['name']}}?station=東湖" coords="885,180,903,202"
+                    shape="rect"><!---->
+                <area title="葫洲" href="/games/{{session['games']['name']}}?station=葫洲" coords="881,133,899,154"
+                    shape="rect"><!---->
+                <area title="大湖公園" href="/games/{{session['games']['name']}}?station=大湖公園" coords="833,127,851,149"
+                    shape="rect"><!---->
+                <area title="內湖" href="/games/{{session['games']['name']}}?station=內湖" coords="779,127,797,148"
+                    shape="rect"><!---->
+                <area title="文德" href="/games/{{session['games']['name']}}?station=文德" coords="730,127,748,150"
+                    shape="rect"><!---->
+                <area title="港墘" href="/games/{{session['games']['name']}}?station=港墘" coords="682,127,700,149"
+                    shape="rect"><!---->
+                <area title="西湖" href="/games/{{session['games']['name']}}?station=西湖" coords="633,127,651,149"
+                    shape="rect"><!---->
+                <area title="劍南路" href="/games/{{session['games']['name']}}?station=劍南路" coords="581,133,599,155"
+                    shape="rect"><!---->
+                <area title="大直" href="/games/{{session['games']['name']}}?station=大直" coords="576,179,597,203"
+                    shape="rect"><!---->
+                <area title="松山機場" href="/games/{{session['games']['name']}}?station=松山機場" coords="578,227,597,249"
+                    shape="rect"><!---->
+                <area title="中山國中" href="/games/{{session['games']['name']}}?station=中山國中" coords="578,274,596,294"
+                    shape="rect"><!---->
+                <area title="新北產業園區" href="/games/{{session['games']['name']}}?station=新北產業園區" coords="41,342,60,364"
+                    shape="rect"><!--done-->
+                <area title="幸福" href="/games/{{session['games']['name']}}?station=幸福" coords="42,394,61,416"
+                    shape="rect"> <!--done-->
+                <area title="頭前庄" href="/games/{{session['games']['name']}}?station=頭前庄" coords="67,435,105,458"
+                    shape="rect"> <!--done-->
+                <area title="板新" href="/games/{{session['games']['name']}}?station=板新" coords="247,605,264,627"
+                    shape="rect"><!--done-->
+                <area title="中原" href="/games/{{session['games']['name']}}?station=中原" coords="246,653,263,677"
+                    shape="rect"><!---->
+                <area title="橋和" href="/games/{{session['games']['name']}}?station=橋和" coords="255,704,275,726"
+                    shape="rect"><!---->
+                <area title="中和" href="/games/{{session['games']['name']}}?station=中和" coords="308,705,326,728"
+                    shape="rect"><!---->
+                <area title="景安" href="/games/{{session['games']['name']}}?station=景安" coords="359,702,398,726"
+                    shape="rect"><!---->
+                <area title="景平" href="/games/{{session['games']['name']}}?station=景平" coords="424,704,444,725"
+                    shape="rect"><!---->
+                <area title="秀朗橋" href="/games/{{session['games']['name']}}?station=秀朗橋" coords="462,729,481,750"
+                    shape="rect"><!---->
+                <area title="十四張" href="/games/{{session['games']['name']}}?station=十四張" coords="505,748,521,767"
+                    shape="rect"><!---->
 
-                <area title="先嗇宮" href="/games/{{session['games']['name']}}?station=先嗇宮" coords="122,392,140,412" shape="rect">  <!--done-->
-                <area title="三重" href="/games/{{session['games']['name']}}?station=三重" coords="159,352,174,373" shape="rect">  <!--done352,159,373,174-->
-                <area title="菜寮" href="/games/{{session['games']['name']}}?station=菜寮" coords="195,317,213,336" shape="rect">  <!--done317,195,336,213-->
-                <area title="台北橋" href="/games/{{session['games']['name']}}?station=台北橋" coords="231,279,247,297" shape="rect"> <!--done279,231,297,247-->
-                <area title="大橋頭" href="/games/{{session['games']['name']}}?station=大橋頭" coords="308,246,325,265" shape="rect"> <!--done246,308,265,325-->
-<!-- 之前沒有 -->
-                <area title="蘆洲" href="/games/{{session['games']['name']}}?station=蘆洲" coords="175,26,194,49" shape="rect">  <!--done-->
-                <area title="三民高中" href="/games/{{session['games']['name']}}?station=三民高中" coords="175,76,194,99" shape="rect">  <!--done352,159,373,174-->
-                <area title="徐匯中學" href="/games/{{session['games']['name']}}?station=徐匯中學" coords="175,127,194,148" shape="rect">  <!--done317,195,336,213-->
-                <area title="三和國中" href="/games/{{session['games']['name']}}?station=三和國中" coords="199,174,216,195" shape="rect"> <!--done279,231,297,247-->
-                <area title="三重國小" href="/games/{{session['games']['name']}}?station=三重國小" coords="228,212,249,234" shape="rect"> <!--done246,308,265,325-->
+                <area title="先嗇宮" href="/games/{{session['games']['name']}}?station=先嗇宮" coords="122,392,140,412"
+                    shape="rect"> <!--done-->
+                <area title="三重" href="/games/{{session['games']['name']}}?station=三重" coords="159,352,174,373"
+                    shape="rect"> <!--done352,159,373,174-->
+                <area title="菜寮" href="/games/{{session['games']['name']}}?station=菜寮" coords="195,317,213,336"
+                    shape="rect"> <!--done317,195,336,213-->
+                <area title="台北橋" href="/games/{{session['games']['name']}}?station=台北橋" coords="231,279,247,297"
+                    shape="rect"> <!--done279,231,297,247-->
+                <area title="大橋頭" href="/games/{{session['games']['name']}}?station=大橋頭" coords="308,246,325,265"
+                    shape="rect"> <!--done246,308,265,325-->
+                <!-- 之前沒有 -->
+                <area title="蘆洲" href="/games/{{session['games']['name']}}?station=蘆洲" coords="175,26,194,49"
+                    shape="rect"> <!--done-->
+                <area title="三民高中" href="/games/{{session['games']['name']}}?station=三民高中" coords="175,76,194,99"
+                    shape="rect"> <!--done352,159,373,174-->
+                <area title="徐匯中學" href="/games/{{session['games']['name']}}?station=徐匯中學" coords="175,127,194,148"
+                    shape="rect"> <!--done317,195,336,213-->
+                <area title="三和國中" href="/games/{{session['games']['name']}}?station=三和國中" coords="199,174,216,195"
+                    shape="rect"> <!--done279,231,297,247-->
+                <area title="三重國小" href="/games/{{session['games']['name']}}?station=三重國小" coords="228,212,249,234"
+                    shape="rect"> <!--done246,308,265,325-->
 
-                <area title="迴龍" href="/games/{{session['games']['name']}}?station=迴龍" coords="25,633,44,654" shape="rect">  <!--done-->
-                <area title="丹鳳" href="/games/{{session['games']['name']}}?station=丹鳳" coords="25,586,44,607" shape="rect">  <!--done352,159,373,174-->
-                <area title="輔大" href="/games/{{session['games']['name']}}?station=輔大" coords="25,539,44,562" shape="rect">  <!--done317,195,336,213-->
-                <area title="新莊" href="/games/{{session['games']['name']}}?station=新莊" coords="31,487,50,506" shape="rect"> <!--done279,231,297,247-->
+                <area title="迴龍" href="/games/{{session['games']['name']}}?station=迴龍" coords="25,633,44,654"
+                    shape="rect"> <!--done-->
+                <area title="丹鳳" href="/games/{{session['games']['name']}}?station=丹鳳" coords="25,586,44,607"
+                    shape="rect"> <!--done352,159,373,174-->
+                <area title="輔大" href="/games/{{session['games']['name']}}?station=輔大" coords="25,539,44,562"
+                    shape="rect"> <!--done317,195,336,213-->
+                <area title="新莊" href="/games/{{session['games']['name']}}?station=新莊" coords="31,487,50,506"
+                    shape="rect"> <!--done279,231,297,247-->
 
-                <area title="頂埔" href="/games/{{session['games']['name']}}?station=頂埔" coords="183,851,200,872" shape="rect"> <!--done279,231,297,247-->
-                <area title="永寧" href="/games/{{session['games']['name']}}?station=永寧" coords="183,802,202,825" shape="rect"> <!--done279,231,297,247-->
-                <area title="土城" href="/games/{{session['games']['name']}}?station=土城" coords="183,757,200,776" shape="rect"> <!--done279,231,297,247-->
-                <area title="海山" href="/games/{{session['games']['name']}}?station=海山" coords="181,709,202,731" shape="rect"> <!--done279,231,297,247-->
-                <area title="明德" href="/games/{{session['games']['name']}}?station=明德" coords="379,1,397,23" shape="rect"> <!--done279,231,297,247-->
-                <area title="芝山" href="/games/{{session['games']['name']}}?station=芝山" coords="379,47,397,68" shape="rect"> <!--done279,231,297,247-->
-                <area title="士林" href="/games/{{session['games']['name']}}?station=士林" coords="379,91,398,114" shape="rect"> <!--done279,231,297,247-->
-                <area title="劍潭" href="/games/{{session['games']['name']}}?station=劍潭" coords="379,138,398,158" shape="rect"> <!--done279,231,297,247-->
-                <area title="圓山" href="/games/{{session['games']['name']}}?station=圓山" coords="379,182,397,204" shape="rect"> <!--done279,231,297,247-->
-                <area title="大坪林" href="/games/{{session['games']['name']}}?station=大坪林" coords="544,745,583,771" shape="rect"> <!--done279,231,297,247-->
-                <area title="科技大樓" href="/games/{{session['games']['name']}}?station=科技大樓" coords="576,560,597,580" shape="rect"> <!--done279,231,297,247-->
-                <area title="六張犁" href="/games/{{session['games']['name']}}?station=六張犁" coords="626,577,644,599" shape="rect"> <!--done279,231,297,247-->
-                <area title="麟光" href="/games/{{session['games']['name']}}?station=麟光" coords="676,578,696,599" shape="rect"> <!--done279,231,297,247-->
-                <area title="辛亥" href="/games/{{session['games']['name']}}?station=辛亥" coords="714,612,733,631" shape="rect"> <!--done279,231,297,247-->
-                <area title="萬芳醫院" href="/games/{{session['games']['name']}}?station=萬芳醫院" coords="715,660,734,678" shape="rect"> <!--done279,231,297,247-->
-                <area title="萬芳社區" href="/games/{{session['games']['name']}}?station=萬芳社區" coords="714,708,733,729" shape="rect"> <!--done279,231,297,247-->
-                <area title="木柵" href="/games/{{session['games']['name']}}?station=木柵" coords="755,735,774,757" shape="rect"> <!--done279,231,297,247-->
-<!-- 之前沒有 -->
-                <area title="中山國小" href="/games/{{session['games']['name']}}?station=中山國小" coords="448,245,464,266" shape="rect"><!---->
-                <area title="行天宮" href="/games/{{session['games']['name']}}?station=行天宮" coords="481,275,498,298" shape="rect"><!---->
-                <area title="頂溪" href="/games/{{session['games']['name']}}?station=頂溪" coords="368,611,388,633" shape="rect"><!---->
-                <area title="永安市場" href="/games/{{session['games']['name']}}?station=永安市場" coords="368,654,388,676" shape="rect"><!---->
-                <area title="南勢角" href="/games/{{session['games']['name']}}?station=南勢角" coords="369,752,388,772" shape="rect"><!---->
+                <area title="頂埔" href="/games/{{session['games']['name']}}?station=頂埔" coords="183,851,200,872"
+                    shape="rect"> <!--done279,231,297,247-->
+                <area title="永寧" href="/games/{{session['games']['name']}}?station=永寧" coords="183,802,202,825"
+                    shape="rect"> <!--done279,231,297,247-->
+                <area title="土城" href="/games/{{session['games']['name']}}?station=土城" coords="183,757,200,776"
+                    shape="rect"> <!--done279,231,297,247-->
+                <area title="海山" href="/games/{{session['games']['name']}}?station=海山" coords="181,709,202,731"
+                    shape="rect"> <!--done279,231,297,247-->
+                <area title="明德" href="/games/{{session['games']['name']}}?station=明德" coords="379,1,397,23"
+                    shape="rect"> <!--done279,231,297,247-->
+                <area title="芝山" href="/games/{{session['games']['name']}}?station=芝山" coords="379,47,397,68"
+                    shape="rect"> <!--done279,231,297,247-->
+                <area title="士林" href="/games/{{session['games']['name']}}?station=士林" coords="379,91,398,114"
+                    shape="rect"> <!--done279,231,297,247-->
+                <area title="劍潭" href="/games/{{session['games']['name']}}?station=劍潭" coords="379,138,398,158"
+                    shape="rect"> <!--done279,231,297,247-->
+                <area title="圓山" href="/games/{{session['games']['name']}}?station=圓山" coords="379,182,397,204"
+                    shape="rect"> <!--done279,231,297,247-->
+                <area title="大坪林" href="/games/{{session['games']['name']}}?station=大坪林" coords="544,745,583,771"
+                    shape="rect"> <!--done279,231,297,247-->
+                <area title="科技大樓" href="/games/{{session['games']['name']}}?station=科技大樓" coords="576,560,597,580"
+                    shape="rect"> <!--done279,231,297,247-->
+                <area title="六張犁" href="/games/{{session['games']['name']}}?station=六張犁" coords="626,577,644,599"
+                    shape="rect"> <!--done279,231,297,247-->
+                <area title="麟光" href="/games/{{session['games']['name']}}?station=麟光" coords="676,578,696,599"
+                    shape="rect"> <!--done279,231,297,247-->
+                <area title="辛亥" href="/games/{{session['games']['name']}}?station=辛亥" coords="714,612,733,631"
+                    shape="rect"> <!--done279,231,297,247-->
+                <area title="萬芳醫院" href="/games/{{session['games']['name']}}?station=萬芳醫院" coords="715,660,734,678"
+                    shape="rect"> <!--done279,231,297,247-->
+                <area title="萬芳社區" href="/games/{{session['games']['name']}}?station=萬芳社區" coords="714,708,733,729"
+                    shape="rect"> <!--done279,231,297,247-->
+                <area title="木柵" href="/games/{{session['games']['name']}}?station=木柵" coords="755,735,774,757"
+                    shape="rect"> <!--done279,231,297,247-->
+                <!-- 之前沒有 -->
+                <area title="中山國小" href="/games/{{session['games']['name']}}?station=中山國小" coords="448,245,464,266"
+                    shape="rect"><!---->
+                <area title="行天宮" href="/games/{{session['games']['name']}}?station=行天宮" coords="481,275,498,298"
+                    shape="rect"><!---->
+                <area title="頂溪" href="/games/{{session['games']['name']}}?station=頂溪" coords="368,611,388,633"
+                    shape="rect"><!---->
+                <area title="永安市場" href="/games/{{session['games']['name']}}?station=永安市場" coords="368,654,388,676"
+                    shape="rect"><!---->
+                <area title="南勢角" href="/games/{{session['games']['name']}}?station=南勢角" coords="369,752,388,772"
+                    shape="rect"><!---->
             </map>
         </div>
     </div>
     <div class="row justify-content-center mt-5" id="scores">
         {% for i in data %}
         <div class='col-12 col-lg-7 d-flex justify-content-center mb-5'>
-            <h3 class='team text-nowrap team-icon mt-2' style='background-color:{{i["color"]}}'>第{{data.index(i)}}小隊</h3>
+            <h3 class='team text-nowrap team-icon mt-2' style='background-color:{{i["color"]}}'>第{{data.index(i)}}小隊
+            </h3>
             <div class="progress w-100 mt-4 ms-2">
-                <div class="progress-bar" role="progressbar" style="width: {{i['counts']/total*100}}%" aria-valuenow="25" aria-valuemin="100" id="{{data.index(i)}}">{{i['counts']}}</div>
+                <div class="progress-bar" role="progressbar" style="width: {{i['counts']/total*100}}%"
+                    aria-valuenow="25" aria-valuemin="100" id="{{data.index(i)}}">{{i['counts']}}</div>
             </div>
 
             {%if 'games' in session%}
             {%if 'permission' in session['games'] and session['games']['permission']=='admin' %}
-            <button class="btn btn-primary my-2 ms-2 me-2"  data-bs-toggle="modal" data-bs-target="#exampleModal{{data.index(i)}}plus">+</button>
-            <div class="modal fade" id="exampleModal{{data.index(i)}}plus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <button class="btn btn-primary my-2 ms-2 me-2" data-bs-toggle="modal"
+                data-bs-target="#exampleModal{{data.index(i)}}plus">+</button>
+            <div class="modal fade" id="exampleModal{{data.index(i)}}plus" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -153,19 +263,23 @@
                         <div class="modal-body">
                             <div class="mb-3 d-flex justify-content-center">
                                 <label for="pin{{i['name']}}delete" class="form-label me-3 pt-2">增加</label>
-                                <input type="text" class="form-control" style="width:170px;" id="{{data.index(i)}}increase">
-                                <label  class="form-label me-2 pt-2 ms-2">分</label>
+                                <input type="text" class="form-control" style="width:170px;"
+                                    id="{{data.index(i)}}increase">
+                                <label class="form-label me-2 pt-2 ms-2">分</label>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancel{{data.index(i)}}increase">取消</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                id="cancel{{data.index(i)}}increase">取消</button>
                             <button onclick="edit('increase','{{data.index(i)}}')" class="btn btn-primary">送出</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#exampleModal{{data.index(i)}}minus">-</button>
-            <div class="modal fade" id="exampleModal{{data.index(i)}}minus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <button class="btn btn-primary my-2" data-bs-toggle="modal"
+                data-bs-target="#exampleModal{{data.index(i)}}minus">-</button>
+            <div class="modal fade" id="exampleModal{{data.index(i)}}minus" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -175,12 +289,14 @@
                         <div class="modal-body">
                             <div class="mb-3 d-flex justify-content-center">
                                 <label for="pin{{i['name']}}delete" class="form-label me-3 pt-2">扣</label>
-                                <input type="text" class="form-control" style="width:170px;" id="{{data.index(i)}}decrease">
-                                <label  class="form-label me-2 pt-2 ms-2">分</label>
+                                <input type="text" class="form-control" style="width:170px;"
+                                    id="{{data.index(i)}}decrease">
+                                <label class="form-label me-2 pt-2 ms-2">分</label>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancel{{data.index(i)}}decrease">取消</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                id="cancel{{data.index(i)}}decrease">取消</button>
                             <button onclick="edit('decrease','{{data.index(i)}}')" class="btn btn-primary">送出</button>
                         </div>
                     </div>
@@ -194,7 +310,8 @@
         </div>
         {% for i in data %}
         <div class='col-12 col-lg-7 d-flex mb-5'>
-            <h3 class='team text-nowrap team-icon mt-2' style='background-color:{{i["color"]}}'>第{{data.index(i)}}小隊</h3>
+            <h3 class='team text-nowrap team-icon mt-2' style='background-color:{{i["color"]}}'>第{{data.index(i)}}小隊
+            </h3>
             <h3 class="pt-3 ms-1">{%for k in i['places']%}{{k}}、{%endfor%}</h3>
         </div>
         {% endfor %}
@@ -210,29 +327,31 @@
     });
 </script>
 <script>
-    function edit(type,team){
-        value=document.getElementById(String(team)+type).value;
-        var xhr=new XMLHttpRequest();
-        xhr.open('get','/games/{{session["games"]["name"]}}/scores?team='+team+'&type='+type+'&value='+String(value),false);
+    function edit(type, team) {
+        value = document.getElementById(String(team) + type).value;
+        var xhr = new XMLHttpRequest();
+        xhr.open('get', '/games/{{session["games"]["name"]}}/scores?team=' + team + '&type=' + type + '&value=' + String(value), false);
         xhr.send();
         console.log(xhr.responseText);
 
-        document.getElementById("cancel"+team+type).click();
-        document.getElementById('scores').innerHTML=xhr.responseText;
+        document.getElementById("cancel" + team + type).click();
+        document.getElementById('scores').innerHTML = xhr.responseText;
     }
 </script>
 
 <script>
-    /* function edit_position(){
-        var element = document.querySelector('area[title="先嗇宮"]');
-        var point=document.getElementById('box');
-        x1=element.coords.split(',')[0];
-        y1=element.coords.split(',')[1];
-        x2=element.coords.split(',')[2];
-        y2=element.coords.split(',')[3];
-        r=parseFloat(x2)-parseFloat(x1);
-        point.style='border-radius:50%;height:'+r+'px;width:'+r+'px;background-color:aqua;position:absolute;left:'+((parseFloat(x1)+parseFloat(x2))/2-r/2)+"px;top:"+((parseFloat(y1)+parseFloat(y2))/2-r/2)+'px;';
-    }  */
+    function stages() {
+        let base_img = document.querySelector('base_img');
+        fetch('/games/{{session["games"]["name"]}}/api/stages_check', { method: "GET", mode: 'cors' })
+            .then(res => (res.json()))
+            .then(res => {
+                base_img.src = '/static/img/map-stage' + res[0]+'.png';//res[0]=>current stages
+                
+
+
+            })
+
+    }
 </script>
 <script src="/static/js/ajax.js"></script>
 {% endblock extend_script %}

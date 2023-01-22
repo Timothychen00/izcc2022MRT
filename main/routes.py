@@ -3,6 +3,7 @@ from flask import Blueprint, redirect, render_template, request,session,flash,js
 from main.model import db_model
 from main.forms import CreateForm
 from main.decorators import login_required,admin_required
+import datetime
 
 app_route=Blueprint('捷大',__name__,static_folder='static',template_folder='templates')
 
@@ -82,6 +83,7 @@ def games():
 @app_route.route('/games/<name>')
 @login_required
 def each_game(name):
+    stages=stages_check()
     print('eachgame')
     data=db_model.load_data(name)
     # print(data)
@@ -103,7 +105,7 @@ def each_game(name):
             flash('佔領成功')
             return redirect('/games/'+name)
         return render_template('eachstation.html',station=station,settings=settings,data=data)
-    return render_template('each_game.html',page='map',data=data,total=13,settings=settings)
+    return render_template('each_game.html',page='map',data=data,total=13,settings=settings,stages=stages)
 
 @app_route.route('/games/<name>/scores')
 @login_required
@@ -165,3 +167,22 @@ def api_teams(name):
     print(teams)
     print(len(teams))
     return jsonify(teams)
+
+@app_route.route('/games/<name>/api/stages_check')
+def stages_check(name):
+    date=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=+8)))
+    stages=0
+    if date.hour==14:
+        if date.minute>=50:
+            stages=1
+    elif date.hour==15:
+       stages=2
+    elif date.hour==16:
+        stages=3
+    elif date.hour==17:
+       stages=4
+# stage1 => 14:50
+# stage2 => 15:00
+# stage3 => 16:00
+# stage4 => 17:00
+    return stages
