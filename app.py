@@ -20,44 +20,45 @@ CORS(app,resources={r"*": {"origins": "*"}})
 app.secret_key='os.urandom(16).hex()'
 app.register_blueprint(app_route)
 
-def staged_auto_decrease(collapse_settings,stage):
+def staged_auto_decrease(collapse_settings,stage=0):
     @scheduler.task('interval', id='自動扣分', seconds=2)
     def decrease():
         games=db_model.find_game()
         for i in games:
             teams=db_model.load_data(i['name'])
             for k in range(len(teams)):
-                if '0' not in stage:
-                    stage_tuple=['stage0','stage1','stage2','stage3','stage4']
-                    if teams[k]['now'] !='' and teams[k]['now'] !='' and teams[k]['now'] in collapse_settings['map'][stage_tuple[stage_tuple.index(stage)-1]]['warn']:#在上一個階段的警告區進行扣分
-                        db_model.edit_scores(i['name'],k,collapse_settings['decrease_score']*-1)
-                        print(i['name'],k,'\b小扣分 now(before):',teams[k]['counts'],' ['+str(datetime.datetime.now()),']')
+                if stage>0:
+                    if teams[k]['now']!='':
+                        for i in range(stage-1,0,-1):
+                            if teams[k]['now'] in collapse_settings['map']['stage'+str(i)]['warn']:#在上一個階段的警告區進行扣分
+                                db_model.edit_scores(i['name'],k,collapse_settings['decrease_score']*-1)
+                                print(i['name'],k,'\b小扣分 now(before):',teams[k]['counts'],' ['+str(datetime.datetime.now()),']')
 
 def stage1():
-    print('stage1')
+    print('\033[93m stage1 \033[0m')
     collapse_settings=db_model.load_settings('collapse')
-    staged_auto_decrease(collapse_settings,'stage1')
+    staged_auto_decrease(collapse_settings,1)
 
 def stage2():
-    print('stage2')
+    print('\033[93m stage2 \033[0m')
     try:
         scheduler.delete_job('自動扣分')
     except:
         pass
     collapse_settings=db_model.load_settings('collapse')
-    staged_auto_decrease(collapse_settings,'stage2')
+    staged_auto_decrease(collapse_settings,2)
 
 def stage3():
-    print('stage3')
+    print('\033[93m stage3 \033[0m')
     try:
         scheduler.delete_job('自動扣分')
     except:
         pass
     collapse_settings=db_model.load_settings('collapse')
-    staged_auto_decrease(collapse_settings,'stage3')
+    staged_auto_decrease(collapse_settings,3)
 
 def stage4():
-    print('stage4')
+    print('\033[93m stage4 \033[0m')
     try:
         scheduler.delete_job('自動扣分')
     except:
