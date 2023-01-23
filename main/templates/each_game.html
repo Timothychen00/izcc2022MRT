@@ -359,7 +359,7 @@
     function load_data() {
         fetch('http://127.0.0.1:8080/games/捷大/api/teams', { method: "GET", mode: 'cors' })
             .then((response) => response.json())
-            .then((res) => { console.log(res); window.teams = res; draw_teams(); stages(); team_data(); toast(); });
+            .then((res) => { console.log(res); window.teams = res; draw_teams(); stages(); team_data(); show_toast(); });
     }
 
     function draw_teams(data) {
@@ -424,19 +424,26 @@
         }
     }
 
-    function toast() {
+    function show_toast() {//崩塌階段開始的提示
         let toast = document.querySelector("#liveToast");
         let toast_msg = document.querySelector('#toast_msg');
         let msg = '';
         let time = new Date();
-        if (time.getHours() == 0 && time.getMinutes() == 8)
+
+        if (time.getHours() == 12 && time.getMinutes() == 4 && window.toast_times!=1){
             msg = '崩塌即將開始（第一階段）';
-        else if (time.getHours() == 15 && time.getMinutes() == 0)
+            window.toast_times=1;
+        }else if (time.getHours() == 15 && time.getMinutes() == 0 && window.toast_times!=2){
             msg = '崩塌即將開始（第二階段）';
-        else if (time.getHours() == 16 && time.getMinutes() == 0)
+            window.toast_times=2;
+        }else if (time.getHours() == 16 && time.getMinutes() == 0 && window.toast_times!=3){
             msg = '崩塌即將開始（第三階段）';
-        else if (time.getHours() == 17 && time.getMinutes() == 0)
+            window.toast_times=3;
+        }else if (time.getHours() == 17 && time.getMinutes() == 0 && window.toast_times!=4){
             msg = '崩塌即將開始（第四階段）';
+            window.toast_times=4;
+        }
+
         if (msg != '') {
             toast_msg.innerHTML = msg;
             toast.classList = 'toast show';
@@ -444,6 +451,7 @@
             toast.classList = 'toast hide';
     }
 
+    window.toast_times=0;
     load_data();
     setInterval(load_data, 5000);
     draw_teams();
