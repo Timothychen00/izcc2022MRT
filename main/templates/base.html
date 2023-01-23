@@ -16,6 +16,8 @@
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </head>
 
 <body style="min-height: 90vh">
@@ -52,6 +54,16 @@
                     {% endif %} {%endif%}
                 </ul>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item" id="tooltip">
+                        <a class="nav-link" href="#" style="padding-top: 11px;"><ion-icon name="alert-circle-outline"  style="font-size: larger;"></ion-icon></a>
+                        <span id="tooltiptext">
+                             第一階段崩塌 => 14:50<br>
+                             第二階段崩塌 => 15:00<br>
+                             第三階段崩塌 => 16:00<br>
+                             第四階段崩塌 => 17:00
+                        </span>
+                    </li>
+
                     {% if 'games' in session %} {% if
                     session['games']['name'] %}
                     <li class="nav-item">

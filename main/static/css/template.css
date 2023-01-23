@@ -292,6 +292,15 @@ body {
     animation-delay: 0.2s;
 }
 
+.slide-1 {
+    position: absolute;
+    margin-top: 100px;
+    opacity: 0;
+    -webkit-animation: slide1 1s forwards;
+    animation: slide1 1s forwards;
+    animation-delay: 0.2s;
+}
+
 @-webkit-keyframes slide {
     100% {
         bottom: 0;
@@ -327,4 +336,31 @@ body {
 }
 .bg-green{
     background-color: rgb(58, 203, 58)!important;
+}
+
+
+#tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+#tooltip #tooltiptext {
+    visibility: hidden;
+    width: 180px;
+    /* height: 200px; */
+    background-color: rgb(87, 191, 201);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    font-size: .8rem;
+    padding: 5px 0;
+    box-shadow: 1px 1px 1px 1px rgba(143, 143, 143, 0.704);
+
+    /* 定位 */
+    position: absolute;
+    z-index: 1;
+}
+
+#tooltip:hover #tooltiptext {
+    visibility: visible;
 }
