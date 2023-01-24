@@ -7,17 +7,17 @@
         </div>
     </div>
     <div class="row justify-content-center text-center">
-        <div class="col-4 mb-3 mt-5 d-inline-flex align-items-center justify-content-center">
+        <div class="col-lg-4 col-12 mb-3 mt-5 d-inline-flex align-items-center justify-content-center">
             <img src="/static/img/location.webp" alt="" style="height:40px;">
             <h3 class="h3 pt-3 ps-2">現在位置：{{data[session['games']['team']]['now']}}</h3>
         </div>
-        <div class="col-9 mb-5 mt-2">
+        <div class="col-12 col-lg-9 mb-5 mt-2 test-start">
             <h3 id="msg" style="white-space: pre;"></h3>
         </div>
 
     </div>
     <div class="row justify-content-center">
-        <div class="col-lg-8 col-12 p-0 d-inline-flex justify-content-center" style="position:relative">
+        <div class="col-lg-12 col-12 p-0 d-inline-flex justify-content-center" style="position:relative;max-width:942px">
             <img src="/static/img/map-stage0.png" width="942" height="950" usemap="#MRTMap" id="base_img">
             <div style="background-color:aqua;position:absolute;top:0px" id="box">
             </div>
@@ -357,14 +357,16 @@
 
 <script>
     function load_data() {
-        fetch('http://127.0.0.1:8080/games/捷大/api/teams', { method: "GET", mode: 'cors' })
+        fetch('/games/{{session["games"]["name"]}}/api/teams', { method: "GET", mode: 'cors' })
             .then((response) => response.json())
             .then((res) => { console.log(res); window.teams = res; draw_teams(); stages(); team_data(); show_toast(); });
     }
 
-    function draw_teams(data) {
+    function draw_teams() {
         var box = document.getElementById('box');
         // console.log(window.teams)
+        if (!window.teams)
+            return load_data();
         for (i in window.teams) {
             let element = document.querySelector('area[title="' + window.teams[i]['now'] + '"]');
             let x1 = element.coords.split(',')[0];
@@ -376,9 +378,9 @@
             let e_x2 = element2.coords.split(',')[2];
             let r = parseFloat(e_x2) - parseFloat(e_x1);
             r *= 1.4;
-            // console.log((parseFloat(y1)+parseFloat(y2))/2);
+            console.log((parseFloat(y1)+parseFloat(y2))/2); 
 
-            let k = "<div style='border-radius:50%;border:3px black solid;height:" + r + 'px;width:' + r + 'px;background-color:' + window.teams[i]['color'] + ';position:absolute;left:' + ((parseFloat(x1) + parseFloat(x2)) / 2.00 - r / 2.00) + "px;top:" + ((parseFloat(y1) + parseFloat(y2)) / 2 - r / 2) + 'px;text-align:center;color:black;font-weight:900\'>' + i + '</div>';
+            let k = "<div style='border-radius:50%;font-size:.5rem;border:3px black solid;height:" + r + 'px;width:' + r + 'px;background-color:' + window.teams[i]['color'] + ';position:absolute;left:' + ((parseFloat(x1) + parseFloat(x2)) / 2.00 - r / 2.00) + "px;top:" + ((parseFloat(y1) + parseFloat(y2)) / 2 - r / 2) + 'px;text-align:center;color:black;font-weight:900\'></div>';
             // console.log(k);
             element.innerHTML = k;
         }
@@ -398,7 +400,7 @@
                 else if (res[1] == 'warn')
                     msgs = '<span style="color:yellow">目前在警告區（即將進行扣分）</span>';
 
-                msg.innerHTML = '目前階段：' + res[0] + '          目前狀態： ' + msgs;
+                msg.innerHTML = '目前階段：' + res[0] + '<br>目前狀態： ' + msgs;
             })
     }
 

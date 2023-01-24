@@ -1,0 +1,39 @@
+{
+ "cwbopendata": {
+  "@xmlns": "urn:cwb:gov:tw:cwbcommon:0.1",
+  "identifier": "b7077278-8918-cc9d-9dc2-01cc26b5001c",
+  "sender": "weather@cwb.gov.tw",
+  "sent": "2023-01-20T17:09:27+08:00",
+  "status": "Actual",
+  "msgType": "Issue",
+  "scope": "Public",
+  "dataid": "F-C0032-009",
+  "source": "Weather Forecast Center",
+  "dataset": {
+   "datasetInfo": {
+    "datasetDescription": "WeatherAssistant",
+    "datasetLanguage": "zh-TW",
+    "issueTime": "2023-01-20T17:08:19+08:00"
+   },
+   "location": {
+    "locationName": "台北市",
+    "stationId": "46692",
+    "geocode": "63"
+   },
+   "parameterSet": {
+    "parameterSetName": "天氣小幫手描述",
+    "parameter": [
+     {
+      "parameterValue": "氣溫回升；有局部短暫雨，出門請攜帶雨具。"
+     },
+     {
+      "parameterValue": "今天（20日）受東北風影響，天氣稍冷，台北站低溫15.4度，高溫19.7度；各區大多為陰天。"
+     },
+     {
+      "parameterValue": "明天（21日）東北季風減弱，氣溫回升，全日氣溫15-20度；有局部短暫雨，出門請攜帶雨具。"
+     }
+    ]
+   }
+  }
+ }
+}
