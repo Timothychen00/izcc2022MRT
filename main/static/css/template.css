@@ -364,3 +364,18 @@ body {
 #tooltip:hover #tooltiptext {
     visibility: visible;
 }
+
+.base-board {
+    border-radius: 50px;
+    background-color: #e7e7e7;
+    height: 200px;
+}
+
+.small-card {
+    border-radius: 1rem;
+}
+
+.side-text {
+    max-width: 50px;
+    background-color: #006fba;
+}

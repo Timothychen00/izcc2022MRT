@@ -29,8 +29,9 @@ def staged_auto_decrease(collapse_settings,stage=0):
             for k in range(len(teams)):
                 if stage>0:
                     if teams[k]['now']!='':
-                        for i in range(stage-1,0,-1):
-                            if teams[k]['now'] in collapse_settings['map']['stage'+str(i)]['warn']:#在上一個階段的警告區進行扣分
+                        for j in range(stage-1,0,-1):
+                            if teams[k]['now'] in collapse_settings['map']['stage'+str(j)]['warn']:#在上一個階段的警告區進行扣分
+                                print(i['name'])
                                 db_model.edit_scores(i['name'],k,collapse_settings['decrease_score']*-1)
                                 print(i['name'],k,'\b小扣分 now(before):',teams[k]['counts'],' ['+str(datetime.datetime.now()),']')
 
@@ -77,7 +78,7 @@ if __name__=='__main__':
     
     for l in stages:#jobs info
         time=collapse['time'][l].split(':')
-        scheduler.add_job(id='崩塌開始_'+l,func=stages[l],trigger='cron',day='*', hour=time[0], minute=time[1], second=time[2],misfire_grace_time=900)
+        scheduler.add_job(id='崩塌開始_'+l,func=stages[l],trigger='cron',day='*', hour=time[0], minute=time[1], second=time[2],misfire_grace_time=900,timezone='Asia/Taipei')
     for k in scheduler.get_jobs():
         print(k)
     app.run(debug=False,port=8080,host='0.0.0.0')
