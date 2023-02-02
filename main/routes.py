@@ -186,6 +186,7 @@ def stages_check(name):
     collapse_settings=db_model.load_settings('collapse')
     # collapse_settings[stages]
     
+    print(collapse_settings)
     if stages>0:
         if now in collapse_settings['map']['stage'+str(stages)]['warn']:
             msg='warn'

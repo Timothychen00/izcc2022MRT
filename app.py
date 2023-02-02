@@ -21,7 +21,7 @@ app.secret_key='os.urandom(16).hex()'
 app.register_blueprint(app_route)
 
 def staged_auto_decrease(collapse_settings,stage=0):
-    @scheduler.task('interval', id='自動扣分', seconds=2)
+    @scheduler.task('interval', id='自動扣分', seconds=300)
     def decrease():
         games=db_model.find_game()
         for i in games:
