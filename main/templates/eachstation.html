@@ -6,38 +6,38 @@
             <div class="mt-2 d-flex shadow" style="background-color: white;height:65%;border-radius:40px 40px 0 0">
                 <div class="col-4 d-flex mt-4 ms-4">
                     <img {% if station in
-                        ["南港展覽館","南港","昆陽","後山埤","永春","市政府","國父紀念館","忠孝敦化","善導寺","龍山寺","江子翠","新埔(民生)","板橋","府中","亞東醫院","海山","土城","永寧","頂埔"]
+                        ["南港","昆陽","後山埤","永春","市政府","國父紀念館","忠孝敦化","善導寺","龍山寺","江子翠","新埔(民生)","板橋","府中","亞東醫院","海山","土城","永寧","頂埔"]
                         %} src="/static/img/blue.png" alt="" style="height:100px;border-radius:20px" id="icon"
                         class='shadow'>
                     <div style="height:30px;width:30px;border-radius:25%;background-color:#e7e7e7;color:#006fba;text-align:center;padding-top:5px;margin-top:80px;margin-left:-15px;font-weight:900"
                         class="shadow">藍</div>
                     {% elif station in
-                    ["明德","芝山","士林","劍潭","圓山","民權西路","雙連","中山","臺北車站","台大醫院","中正紀念堂","東門","大安森林公園","大安","信義安和","台北101／世貿","象山"]%}
+                    ["明德","芝山","士林","劍潭","圓山","雙連","台北車站","台大醫院","東門","大安森林公園","信義安和","台北101/世貿","象山"]%}
                     src="/static/img/red.png"
                     alt="" style="height:100px;border-radius:20px" id="icon" class='shadow'>
                     <div style="height:30px;width:30px;border-radius:25%;background-color:#e7e7e7;color:rgb(209,45,50);text-align:center;padding-top:5px;margin-top:80px;margin-left:-15px;font-weight:900"
                         class="shadow">紅</div>
                     {% elif station in
-                    ["松山","南京三民","台北小巨蛋","南京復興","松江南京","中山","北門","西門","小南門","中正紀念堂","古亭","台電大樓","公館","萬隆","景美","大坪林","七張","新店區公所","新店","小碧潭"]
+                    ["松山","南京三民","台北小巨蛋","南京復興","中山","北門","西門","小南門","中正紀念堂","台電大樓","公館","萬隆","景美","大坪林","七張","新店區公所","新店","小碧潭"]
                     %}
                     src="/static/img/green.png"
                     alt="" style="height:100px;border-radius:20px" id="icon" class='shadow'>
                     <div style="height:30px;width:30px;border-radius:25%;background-color:#e7e7e7;color:rgb(59,133,92);text-align:center;padding-top:5px;margin-top:80px;margin-left:-15px;font-weight:900"
                         class="shadow">綠</div>
-                    {% elif station in ["大坪林","十四張","秀朗橋","景平","景安","中和","橋和","中原","板新","板橋","新埔民生","頭前庄","幸福","新北產業園區"]
+                    {% elif station in ["大坪林","十四張","秀朗橋","景平","景安","中和","橋和","中原","板新","板橋","新埔民生","幸福","新北產業園區"]
                     %}
                     src="/static/img/yellow.png"
                     alt="" style="height:100px;border-radius:20px" id="icon" class='shadow'>
                     <div style="height:30px;width:30px;border-radius:25%;background-color:#e7e7e7;color:rgb(249,221,74);text-align:center;padding-top:5px;margin-top:80px;margin-left:-15px;font-weight:900"
                         class="shadow">黃</div>
                     {% elif station in
-                    ["動物園","木柵","萬芳社區","萬芳醫院","辛亥","麟光","六張犁站","科技大樓","大安","忠孝復興","南京復興","中山國中","松山機場","大直","劍南路","西湖","港墘","文德","內湖","大湖公園","葫洲","東湖站","南港軟體園區","南港展覽館"]%}
+                    ["動物園","木柵","萬芳社區","萬芳醫院","辛亥","麟光","六張犁","科技大樓","大安","忠孝復興","南京復興","中山國中","松山機場","大直","劍南路","西湖","港墘","文德","內湖","大湖公園","葫洲","東湖","南港軟體園區","南港展覽館"]%}
                     src="/static/img/brown.png"
                     alt="" style="height:100px;border-radius:20px" id="icon" class='shadow'>
                     <div style="height:30px;width:30px;border-radius:25%;background-color:#e7e7e7;color:rgb(186,142,64);text-align:center;padding-top:5px;margin-top:80px;margin-left:-15px;font-weight:900"
                         class="shadow">棕</div>
                     {% elif station in
-                    ["蘆洲","三民高中","徐匯中學","三和國中","三重國小","迴龍","丹鳳","輔大","新莊","頭前庄","先嗇宮","三重","菜寮","台北橋","大橋頭","民權西路","中山國小","行天宮","松江南京","忠孝新生","東門","古亭","頂溪","永安市場","景安","南勢角"]
+                    ["蘆洲","三民高中","徐匯中學","三和國中","三重國小","迴龍","頭前庄","丹鳳","輔大","新莊","頭前庄","先嗇宮","三重","菜寮","台北橋","大橋頭","民權西路","中山國小","行天宮","松江南京","忠孝新生","東門","古亭","頂溪","永安市場","景安","南勢角"]
                     %}
                     src="/static/img/orange.png"
                     alt="" style="height:100px;border-radius:20px" id="icon" class='shadow'>
@@ -105,6 +105,13 @@
             <div class="col small-card p-3 shadow" style="color:#929292;background-color:white">
                 {% for task in settings[station] %}
                 {{task[2]}}
+                {% if ',' in task[4] %}
+                    {% for each in task[4].split(',') %}
+                        <img src="{{each}}" class="mw-100"  alt="">
+                    {%endfor%}
+                {%else%}
+                <img src="{{task[4]}}" class="mw-100" alt="">
+                {%endif%}
                 {%endfor%}
             </div>
         </div>

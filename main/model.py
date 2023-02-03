@@ -13,7 +13,7 @@ class DB():
         '''this function is used to load the global settings data from mongodb'''
         map=self.settings.find_one({'type':'settings'})
         collapse=self.settings.find_one({'type':'collapse'})
-        settings={'map':map,'collapse':collapse}
+        settings={'settings':map,'collapse':collapse}
         if keyword:
             settings=settings[keyword]
         return settings
@@ -127,16 +127,16 @@ class DB():
     
     def upload_tasks(self):
         '''this function is to upload the tasks.json from local file system to mongodb settings collection'''
-        result=self.load_settings()
+        result=self.load_settings("settings")
         if result:
-            with open('tasks.json',"r") as f1:
+            with open('newtask.json',"r") as f1:
                 data=json.load(f1)
             result.update(data)
             print(result)
             self.settings.update_one({'type':'settings'},{"$set":result})
         else:
             result={"type":'settings'}
-            with open('tasks.json',"r") as f1:
+            with open('newtask.json',"r") as f1:
                 data=json.load(f1)
             result.update(data)
             print(result)

@@ -85,7 +85,7 @@ def each_game(name):
     move=request.args.get('move',None)
     station=request.args.get('station',None)
     have=request.args.get('have',None)
-    settings=db_model.load_settings('map')
+    settings=db_model.load_settings('settings')
     # print(settings)
     # print(station)
     # print(session)

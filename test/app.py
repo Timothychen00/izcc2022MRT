@@ -14,7 +14,7 @@ class Config(object):
     
 @scheduler.task('cron', id='崩塌開始', day='*', hour='11', minute='23', second='20')
 def job3():
-    @scheduler.task('interval', id='do_job_4', seconds=2)
+    @scheduler.task('interval', id='do_job_4', seconds=300)
     def job4():
         print(str(datetime.datetime.now()) + ' fuck')
         print(scheduler.get_jobs())

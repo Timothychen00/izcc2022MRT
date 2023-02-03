@@ -54,7 +54,7 @@
         return Math.floor(Math.random() * max);
     }
     function get_card() {
-        location.href = '/games/{{session['games']['name']}}/cards?get=' + (getRandomInt(19) + 1);
+        location.href = '/games/{{session['games']['name']}}/cards?get=' + (getRandomInt(26) + 1);
     }
     function add_card(id){
         let card_box=document.querySelector('#card_box');
