@@ -19,8 +19,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-12 col-12 p-0 d-inline-flex justify-content-center" style="position:relative;max-width:942px">
             <img src="/static/img/map-stage0.png" width="942" height="950" usemap="#MRTMap" id="base_img">
-            <div style="background-color:aqua;position:absolute;top:0px" id="box">
-            </div>
+            <div id="box"></div>
             <map name="MRTMap">
                 <area title="淡水" href="/games/{{session['games']['name']}}?station=淡水" coords="113,78,173,113"
                     shape="rect">
@@ -365,6 +364,7 @@
         // console.log(window.teams)
         if (!window.teams)
             return load_data();
+        box.innerHTML='';
         for (i in window.teams) {
             let element = document.querySelector('area[title="' + window.teams[i]['now'] + '"]');
             let x1 = element.coords.split(',')[0];
@@ -380,7 +380,7 @@
 
             let k = "<div style='border-radius:50%;font-size:.5rem;border:3px black solid;height:" + r + 'px;width:' + r + 'px;background-color:' + window.teams[i]['color'] + ';position:absolute;left:' + ((parseFloat(x1) + parseFloat(x2)) / 2.00 - r / 2.00) + "px;top:" + ((parseFloat(y1) + parseFloat(y2)) / 2 - r / 2) + 'px;text-align:center;color:black;font-weight:900\'></div>';
             // console.log(k);
-            element.innerHTML = k;
+            box.innerHTML += k;
         }
     }
     function stages() {

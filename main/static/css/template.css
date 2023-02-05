@@ -368,7 +368,7 @@ body {
 .base-board {
     border-radius: 50px;
     background-color: #e7e7e7;
-    height: 200px;
+    min-height: 200px;
 }
 
 .small-card {
