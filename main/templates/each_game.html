@@ -241,7 +241,7 @@
     </div>
     <div class="row justify-content-center mt-5" id="scores">
         {% for i in data %}
-        <div class='col-12 col-lg-7 d-flex justify-content-center mb-5'>
+        <div class='col-12 col-lg-7 d-flex justify-content-center mb-5'  id="team{{data.index(i)}}box">
             <h3 class='team text-nowrap team-icon mt-2' style='background-color:{{i["color"]}}'>第{{data.index(i)}}小隊
             </h3>
             <div class="progress w-100 mt-4 ms-2">
@@ -408,16 +408,29 @@
     function team_data() {
         max = 0;
         for (i in window.teams) {
+            let time=new Date();
+
             if (window.teams[i]['counts'] > max)
                 max = window.teams[i]['counts'];
         }
         for (i in window.teams) {
+
             id = '#team' + String(i);
             let temp = document.querySelector(id);
             percent = window.teams[i]['counts'] / max * 100;
             console.log('隊伍' + window.teams[i]['counts']);
             temp.style = "width:" + percent + '%';
             temp.innerHTML = window.teams[i]['counts'];
+
+            let time= new Date();
+            let a=parseInt("{{session['games']['team']}}");
+            if (time.getHours()==15 || time.getHours()==16 ||(time.getHours()==17 && time.getMinutes()<30)){
+                if (a!=i)
+                    document.querySelector('#team'+i+"box").classList.add('visually-hidden');
+            }else{
+                if (a!=i)
+                    document.querySelector('#team'+i+"box").classList.remove('visually-hidden');
+            }
 
             id_2 = '#place' + String(i);
             let temp_place = document.querySelector(id_2);
@@ -445,6 +458,9 @@
         }else if (time.getHours() == 17 && time.getMinutes() == 0 && window.toast_times!=4){
             msg = '崩塌即將開始（第四階段）';
             window.toast_times=4;
+        }else if (time.getHours() == 17 && time.getMinutes() == 30 && window.toast_times!=5){
+            msg = '遊戲結束';
+            window.toast_times=5;
         }
 
         if (msg != '') {

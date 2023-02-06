@@ -174,7 +174,9 @@ def stages_check(name):
     elif date.hour==16:
         stages=3
     elif date.hour==17:
-       stages=4
+        stages=4
+        if date.minute>=30:
+            stages=5
        
     # stage1 => 14:50
     # stage2 => 15:00
@@ -187,7 +189,7 @@ def stages_check(name):
     # collapse_settings[stages]
     
     print(collapse_settings)
-    if stages>0:
+    if stages>0 and stages!=5:
         if now in collapse_settings['map']['stage'+str(stages)]['warn']:
             msg='warn'
 

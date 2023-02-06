@@ -68,13 +68,23 @@ def stage4():
     staged_auto_decrease(collapse_settings,4)
     # print('結束')
 
+def stage5():
+    print('\033[93m stage5 \033[0m')
+    try:
+        scheduler.delete_job('自動扣分')
+    except:
+        pass
+    # collapse_settings=db_model.load_settings('collapse')
+    # staged_auto_decrease(collapse_settings,5)
+    # print('結束')
+
 if __name__=='__main__':
     app.config.from_object(Config())
     scheduler.init_app(app)
     scheduler.start()
     
     collapse=db_model.load_settings('collapse')
-    stages={'stage1':stage1,'stage2':stage2,'stage3':stage3,'stage4':stage4}
+    stages={'stage1':stage1,'stage2':stage2,'stage3':stage3,'stage4':stage4,"stage5":stage5}
     
     for l in stages:#jobs info
         time=collapse['time'][l].split(':')
