@@ -346,7 +346,6 @@
         xhr.open('get', '/games/{{session["games"]["name"]}}/scores?team=' + team + '&type=' + type + '&value=' + String(value), false);
         xhr.send();
         //console.log(xhr.responseText);
-
         document.getElementById("cancel" + team + type).click();
         document.getElementById('scores').innerHTML = xhr.responseText;
     }
@@ -378,10 +377,14 @@
             r *= 1.4;
             console.log((parseFloat(y1)+parseFloat(y2))/2); 
 
-            let k = "<div style='border-radius:50%;font-size:.5rem;border:3px black solid;height:" + r + 'px;width:' + r + 'px;background-color:' + window.teams[i]['color'] + ';position:absolute;left:' + ((parseFloat(x1) + parseFloat(x2)) / 2.00 - r / 2.00) + "px;top:" + ((parseFloat(y1) + parseFloat(y2)) / 2 - r / 2) + 'px;text-align:center;color:black;font-weight:900\'></div>';
+            //let n=box.appendChild(document.createElement('div'));
+            //n.style=style="'border-radius:50%;font-size:.5rem;border:3px black solid;height:" + r + 'px;width:' + r + 'px;background-color:' + window.teams[i]['color'] + ';position:absolute;left:' + ((parseFloat(x1) + parseFloat(x2)) / 2.00 - r / 2.00) + "px;top:" + ((parseFloat(y1) + parseFloat(y2)) / 2 - r / 2) + 'px;text-align:center;color:black;font-weight:900\'";
+            //n.onclick=()=>{alert(1)};
+            let k = "<a href=\"/games/{{session['games']['name']}}?station="+ window.teams[i]['now'] +"\" ><div style='border-radius:50%;font-size:.5rem;border:3px black solid;height:" + r + 'px;width:' + r + 'px;background-color:' + window.teams[i]['color'] + ';position:absolute;left:' + ((parseFloat(x1) + parseFloat(x2)) / 2.00 - r / 2.00) + "px;top:" + ((parseFloat(y1) + parseFloat(y2)) / 2 - r / 2) + 'px;text-align:center;color:black;font-weight:900\'></div></a>';
             // console.log(k);
             box.innerHTML += k;
         }
+        //box.addEventListener('click',()=>{alert(1);element.click()})
     }
     function stages() {
         let base_img = document.querySelector('#base_img');
