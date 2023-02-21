@@ -44,6 +44,8 @@
                     <div style="height:30px;width:30px;border-radius:25%;background-color:#e7e7e7;color:rgb(238,186,68);text-align:center;padding-top:5px;margin-top:80px;margin-left:-15px;font-weight:900"
                         class="shadow">橘</div>
                     {% endif %}
+
+
                 </div>
                 <div class="col-8 d-flex">
                     <div class="flex-column d-flex text-start pt-4 ps-3">
@@ -52,8 +54,14 @@
                         </div>
                         <div style="font-size:large;font-weight:800">
                             {% for task in settings[station] %}
-                            難易度：{{task[3]}}
+                            <span class="pe-3">難易度：{{task[3]}}</span>
                             {%endfor%}
+                            
+                            {% if station in ["台北車站","中正紀念堂","大安森林公園","公館","蘆洲","迴龍","新店","松山","南港展覽館","木柵","象山","大坪林","南勢角","頂埔","新北產業園區","士林","圓山","松山機場","港墘","市政府","橋和","土城","板橋","三重","大橋頭","徐匯中學","萬芳醫院","六張犁","中山"] %}
+                            <span style="color:red">特別站</span>
+                            {%else%}
+                            <span>普通站</span>
+                            {% endif %}
                         </div>
                         <div class="mt-2">
                             {%if 'games' in session%}

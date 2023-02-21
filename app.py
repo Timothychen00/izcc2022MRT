@@ -21,7 +21,7 @@ app.secret_key='os.urandom(16).hex()'
 app.register_blueprint(app_route)
 
 def staged_auto_decrease(collapse_settings,stage=0):
-    @scheduler.task('interval', id='自動扣分', seconds=300)
+    @scheduler.task('interval', id='autodecrease', seconds=300)
     def decrease():
         games=db_model.find_game()
         for i in games:
@@ -43,7 +43,7 @@ def stage1():
 def stage2():
     print('\033[93m stage2 \033[0m')
     try:
-        scheduler.delete_job('自動扣分')
+        scheduler.delete_job('autodecrease')
     except:
         pass
     collapse_settings=db_model.load_settings('collapse')
@@ -52,7 +52,7 @@ def stage2():
 def stage3():
     print('\033[93m stage3 \033[0m')
     try:
-        scheduler.delete_job('自動扣分')
+        scheduler.delete_job('autodecrease')
     except:
         pass
     collapse_settings=db_model.load_settings('collapse')
@@ -61,7 +61,7 @@ def stage3():
 def stage4():
     print('\033[93m stage4 \033[0m')
     try:
-        scheduler.delete_job('自動扣分')
+        scheduler.delete_job('autodecrease')
     except:
         pass
     collapse_settings=db_model.load_settings('collapse')
@@ -71,7 +71,7 @@ def stage4():
 def stage5():
     print('\033[93m stage5 \033[0m')
     try:
-        scheduler.delete_job('自動扣分')
+        scheduler.delete_job('autodecrease')
     except:
         pass
     # collapse_settings=db_model.load_settings('collapse')
