@@ -44,7 +44,7 @@ class DB():
                 for j in range(2):
                     temp=''.join(random.sample('0123456789',6))
                     while temp in pins:
-                        temp=''.join(random.sample('Z0123456789',6))
+                        temp=''.join(random.sample('0123456789',6))
                     pins.append(temp)
                 data['pin'].append(pins[i*2-2])
                 data['adminpin'].append(pins[i*2-1])

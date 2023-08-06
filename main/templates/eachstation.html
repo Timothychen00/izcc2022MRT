@@ -104,6 +104,8 @@
         </div>
     </div>
 
+    {%if 'games' in session%}
+    {%if 'permission' in session['games'] and session['games']['permission']=='admin' %}
     <div class="row px-3 py-2 mx-2 mt-3 justify-content-center" style="border-radius:1.5rem;">
         <div class="col-12 col-lg-5 d-inline-flex py-2" style="border-radius:20px;background-color:#e7e7e7">
             <div class="col small-card side-text me-3 py-auto ps-3 shadow d-inline-flex align-items-center"
@@ -124,6 +126,8 @@
             </div>
         </div>
     </div>
+    {%endif%}
+    {%endif%}
 {% endif %}
 </div>
 {% endblock main_content %}
