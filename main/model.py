@@ -4,7 +4,7 @@ load_dotenv()
 class DB():
     
     def __init__(self):
-        self.client=pymongo.MongoClient("mongodb+srv://"+os.environ['DB_USER']+":"+os.environ['DB_PASSWORD']+"@cluster0.z3vye.mongodb.net/?retryWrites=true&w=majority",tls=True,tlsAllowInvalidCertificates=True)
+        self.client=pymongo.MongoClient(os.environ['DB_STRING'],tls=True,tlsAllowInvalidCertificates=True)
         self.db=self.client.izcc
         self.settings=self.db.settings
         self.games=self.db.games
