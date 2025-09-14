@@ -1,0 +1,26 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+python-dotenv = "==0.20.0"
+markupsafe = "==2.1.0"
+jinja2 = "==3.0.3"
+itsdangerous = "==2.1.0"
+werkzeug = "==2.0.3"
+flask = "*"
+line-bot-sdk = "==2.0.1"
+flask-apscheduler = "*"
+flask-wtf = "==0.15.1"
+wtforms = "==2.3.3"
+openpyxl = "*"
+gevent = "==21.12.0"
+gunicorn = "==20.1.0"
+flask-cors = "*"
+pymongo = {extras = ["srv"], version = "==3.12.0"}
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"

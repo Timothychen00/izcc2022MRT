@@ -17,7 +17,7 @@ class Config(object):
 app=Flask(__name__,static_folder='main/static',template_folder='main/templates')
 CORS(app,resources={r"*": {"origins": "*"}})
 
-app.secret_key='os.urandom(16).hex()'
+app.secret_key=os.urandom(16).hex()
 app.register_blueprint(app_route)
 
 def staged_auto_decrease(collapse_settings,stage=0):
